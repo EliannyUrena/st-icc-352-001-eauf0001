@@ -1,6 +1,7 @@
 package edu.pucmm.eict.p2;
 
 import edu.pucmm.eict.p2.entidades.Producto;
+import edu.pucmm.eict.p2.entidades.Usuario;
 import edu.pucmm.eict.p2.servicios.FakeServices;
 import io.javalin.Javalin;
 
@@ -14,10 +15,10 @@ public class Main {
 
         FakeServices s = FakeServices.getInstancia();
 
-        for (Producto p : s.getListaProductos()) {
-            IO.println("ID: " + p.getId());
-            IO.println("Nombre: " + p.getNombre());
-            IO.println("Precio: " + p.getPrecio());
+        for (Usuario u : s.getListaUsuarios()) {
+            IO.println("ID: " + u.getUsuario());
+            IO.println("Nombre: " + u.getNombre());
+            IO.println(" : " + u.getPassword());
         }
 
         Javalin app = Javalin.create(config -> {
