@@ -15,6 +15,10 @@ public class ClaseControladora {
     private List<Usuario> listaUsuarios = new ArrayList<>();
     private List<VentaProductos> listaVentaProductos = new ArrayList<>();
 
+    private int contadorProducto = 1;
+    private int contadorUsuario = 1;
+    private int contadorVenta = 1;
+
     private ClaseControladora() {
 
         listaProductos.add( new Producto(1, "PC", new BigDecimal("40000")));
@@ -39,6 +43,18 @@ public class ClaseControladora {
 
     public List<VentaProductos> getListaVentaProductos() {
         return listaVentaProductos;
+    }
+
+    private int generarIdProducto() {
+        return contadorProducto++;
+    }
+
+    private int generarIdUsuario() {
+        return contadorUsuario++;
+    }
+
+    private int generarIdVenta() {
+        return contadorVenta++;
     }
 
 }
