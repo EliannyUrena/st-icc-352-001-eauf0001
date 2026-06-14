@@ -2,29 +2,29 @@ package edu.pucmm.eict.p2.servicios;
 
 import edu.pucmm.eict.p2.entidades.Producto;
 import edu.pucmm.eict.p2.entidades.Usuario;
-import edu.pucmm.eict.p2.entidades.VentasProductos;
+import edu.pucmm.eict.p2.entidades.VentaProductos;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeServices {
+public class ClaseControladora {
 
-    private static FakeServices instancia;
+    private static ClaseControladora instancia;
     private List<Producto> listaProductos = new ArrayList<>();
     private List<Usuario> listaUsuarios = new ArrayList<>();
-    private List<VentasProductos> listaVentaProductos = new ArrayList<>();
+    private List<VentaProductos> listaVentaProductos = new ArrayList<>();
 
-    private FakeServices() {
+    private ClaseControladora() {
 
         listaProductos.add( new Producto(1, "PC", new BigDecimal("40000")));
         listaUsuarios.add(new Usuario("admin", "elianny", "admin"));
 
     }
 
-    public static FakeServices getInstancia() {
+    public static ClaseControladora getInstancia() {
         if (instancia == null) {
-            instancia = new FakeServices();
+            instancia = new ClaseControladora();
         }
         return instancia;
     }
@@ -37,7 +37,7 @@ public class FakeServices {
         return listaUsuarios;
     }
 
-    public List<VentasProductos> getListaVentaProductos() {
+    public List<VentaProductos> getListaVentaProductos() {
         return listaVentaProductos;
     }
 

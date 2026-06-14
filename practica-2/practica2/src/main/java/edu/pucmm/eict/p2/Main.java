@@ -1,11 +1,8 @@
 package edu.pucmm.eict.p2;
 
-import edu.pucmm.eict.p2.entidades.Producto;
 import edu.pucmm.eict.p2.entidades.Usuario;
-import edu.pucmm.eict.p2.servicios.FakeServices;
+import edu.pucmm.eict.p2.servicios.ClaseControladora;
 import io.javalin.Javalin;
-
-import java.math.BigDecimal;
 
 
 public class Main {
@@ -13,7 +10,7 @@ public class Main {
     void main() {
         IO.println("Hola");
 
-        FakeServices s = FakeServices.getInstancia();
+        ClaseControladora s = ClaseControladora.getInstancia();
 
         for (Usuario u : s.getListaUsuarios()) {
             IO.println("ID: " + u.getUsuario());

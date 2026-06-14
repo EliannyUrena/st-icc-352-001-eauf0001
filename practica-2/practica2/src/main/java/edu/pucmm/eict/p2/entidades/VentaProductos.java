@@ -4,24 +4,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class VentasProductos {
+public class VentaProductos {
 
     private long id;
     private Date fechaCompra;
     private String nombreCliente;
     private List<Producto> listaProductos;
 
-    public VentasProductos() {
+    public VentaProductos() {
         this.listaProductos = new ArrayList<>();
     }
 
-    public VentasProductos(long id, Date fechaCompra, String nombreCliente) {
+    public VentaProductos(long id, Date fechaCompra, String nombreCliente) {
         this.id = id;
         this.fechaCompra = fechaCompra;
         this.nombreCliente = nombreCliente;
         this.listaProductos = new ArrayList<>();
     }
-
 
     public long getId() {
         return id;
@@ -54,5 +53,7 @@ public class VentasProductos {
     public void setListaProductos(List<Producto> listaProductos) {
         this.listaProductos = listaProductos;
     }
+
+
 
 }
