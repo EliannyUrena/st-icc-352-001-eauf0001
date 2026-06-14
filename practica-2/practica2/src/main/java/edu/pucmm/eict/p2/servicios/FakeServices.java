@@ -15,8 +15,9 @@ public class FakeServices {
 
     private FakeServices() {
 
-        //listaProductos.add( new Producto(1, "PC", new BigDecimal("40000")));
+        listaProductos.add( new Producto(1, "PC", new BigDecimal("40000")));
         listaUsuarios.add(new Usuario("admin", "elianny", "admin"));
+
     }
 
     public static FakeServices getInstancia() {
