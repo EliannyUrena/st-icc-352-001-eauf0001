@@ -29,6 +29,10 @@ public class Main {
                 ctx.result("Hola");
             });
 
+            config.routes.get("/productos", ctx-> {
+                ctx.json(ClaseControladora.getInstancia().getListaProductos());
+            });
+
 
         });
 

@@ -17,13 +17,12 @@ public class ClaseControladora {
     private List<VentaProductos> listaVentaProductos = new ArrayList<>();
     private List<CarroCompra> listaCarritos = new ArrayList<>();
 
-
     private int contadorProducto = 1;
     private int contadorUsuario = 1;
     private int contadorVenta = 1;
 
     private ClaseControladora() {
-
+        listaProductos.add(new Producto(generarIdProducto(), "pc", new BigDecimal("4000")));
         listaUsuarios.add(new Usuario("admin", "elianny", "admin"));
 
     }
