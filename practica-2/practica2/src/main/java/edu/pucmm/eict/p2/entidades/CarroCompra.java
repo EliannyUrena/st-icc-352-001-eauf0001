@@ -6,21 +6,21 @@ import java.util.List;
 public class CarroCompra {
 
     private long id;
-    private List<Producto> listaProductos;
+    private List<DetalleCarrito> listaProductos;
 
     public CarroCompra() {
         this.listaProductos = new ArrayList<>();
     }
-    public CarroCompra(long id, List<Producto> listaProductos) {
+    public CarroCompra(long id, List<DetalleCarrito> listaProductos) {
         this.id = id;
         this.listaProductos = listaProductos;
     }
 
-    public List<Producto> getListaProductos() {
+    public List<DetalleCarrito> getListaProductos() {
         return listaProductos;
     }
 
-    public void setListaProductos(List<Producto> listaProductos) {
+    public void setListaProductos(List<DetalleCarrito> listaProductos) {
         this.listaProductos = listaProductos;
     }
 
