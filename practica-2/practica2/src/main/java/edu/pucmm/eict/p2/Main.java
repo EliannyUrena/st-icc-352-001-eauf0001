@@ -1,5 +1,6 @@
 package edu.pucmm.eict.p2;
 
+import edu.pucmm.eict.p2.controladores.LoginControlador;
 import edu.pucmm.eict.p2.entidades.Usuario;
 import edu.pucmm.eict.p2.servicios.ClaseControladora;
 import io.javalin.Javalin;
@@ -11,6 +12,8 @@ public class Main {
         IO.println("Hola");
 
         ClaseControladora s = ClaseControladora.getInstancia();
+
+
 
         for (Usuario u : s.getListaUsuarios()) {
             IO.println("ID: " + u.getUsuario());
@@ -24,6 +27,9 @@ public class Main {
                 staticFileConfig.hostedPath = "/";
                 staticFileConfig.directory = "/publico";
             });
+
+            LoginControlador.aplicarRutas(config);
+
 
             config.routes.get("/", ctx -> {
                 ctx.result("Hola");
