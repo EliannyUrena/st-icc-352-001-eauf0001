@@ -13,14 +13,6 @@ public class Main {
 
         ClaseControladora s = ClaseControladora.getInstancia();
 
-
-
-        for (Usuario u : s.getListaUsuarios()) {
-            IO.println("ID: " + u.getUsuario());
-            IO.println("Nombre: " + u.getNombre());
-            IO.println(" : " + u.getPassword());
-        }
-
         Javalin app = Javalin.create(config -> {
 
             config.staticFiles.add(staticFileConfig -> {
@@ -33,11 +25,13 @@ public class Main {
 
             config.routes.get("/", ctx -> {
                 ctx.result("Hola");
+                
             });
-
+            /*
             config.routes.get("/productos", ctx-> {
                 ctx.json(ClaseControladora.getInstancia().getListaProductos());
-            });
+            });*/
+
 
 
         });
