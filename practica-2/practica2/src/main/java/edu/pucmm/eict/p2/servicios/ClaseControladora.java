@@ -84,6 +84,16 @@ public class ClaseControladora {
         return null;
     }
 
+    public Usuario autenticarUsuario(String usuario, String password) {
+
+        for (Usuario u : listaUsuarios) {
+            if (u.getUsuario().equals(usuario) && u.getPassword().equals(password)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
 
 
 }
