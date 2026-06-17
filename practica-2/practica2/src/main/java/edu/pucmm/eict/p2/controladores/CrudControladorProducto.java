@@ -2,8 +2,8 @@ package edu.pucmm.eict.p2.controladores;
 
 import edu.pucmm.eict.p2.entidades.Producto;
 import edu.pucmm.eict.p2.servicios.ClaseControladora;
+import io.javalin.http.Context;
 
-import javax.naming.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +20,7 @@ public class CrudControladorProducto {
         modelo.put("titulo", "Listado de productos");
         modelo.put("listaProductos", productos);
 
-        //renderizar
+        ctx.render("/templates/crudProductos/listarProductos.html", modelo);
 
 
     }
