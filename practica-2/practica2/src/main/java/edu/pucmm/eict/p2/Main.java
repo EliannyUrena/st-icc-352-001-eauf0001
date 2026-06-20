@@ -20,7 +20,6 @@ import static io.javalin.apibuilder.ApiBuilder.put;
 public class Main {
 
     void main() {
-        IO.println("Hola");
 
         ClaseControladora s = ClaseControladora.getInstancia();
 
@@ -43,6 +42,9 @@ public class Main {
 
                     get("/crear", CrudControladorProducto::crearProductosForm);
                     post("/crear", CrudControladorProducto::procesarCrearProductos);
+
+                    get("/editar/{id}", CrudControladorProducto::editarProductosForm);
+                    post("/editar", CrudControladorProducto::procesarEditarProducto);
                 });
 
             });

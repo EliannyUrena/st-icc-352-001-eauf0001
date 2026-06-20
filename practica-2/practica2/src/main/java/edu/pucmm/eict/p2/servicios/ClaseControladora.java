@@ -65,6 +65,19 @@ public class ClaseControladora {
         return p;
     }
 
+    public Producto actualizarProducto(Producto producto) {
+        Producto temp = buscarProducto(producto.getId());
+
+        if (temp == null) {
+            return null;
+        }
+
+        temp.setNombre(producto.getNombre());
+        temp.setPrecio(producto.getPrecio());
+
+        return temp;
+    }
+
     public Producto eliminarProducto(int id) {
         Producto p = buscarProducto(id);
 

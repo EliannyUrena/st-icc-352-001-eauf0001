@@ -14,21 +14,28 @@
     <div class="card shadow">
 
         <div class="card-header fw-bold text-center"
-             th:text="${titulo}">Crear Producto
+             th:text="${titulo}">
         </div>
 
         <div class="card-body">
 
             <form method="post" th:attr="action=${accion}">
 
+                <input type="hidden"
+                       name="id"
+                       th:value="${producto != null ? producto.id : ''}">
+
                 <div class="mb-3">
                     <label class="form-label">Nombre </label>
-                    <input type="text" name="nombre" class="form-control" th:value="${producto} ? ${producto.nombre} : ''">
+                    <input type="text" name="nombre" class="form-control"
+                           th:value="${producto != null ? producto.nombre : ''}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Precio </label>
-                    <input type="number" min="0" name="precio" class="form-control" th:value="${producto} ? ${producto.precio} : ''">
+                    <input type="number" min="0" name="precio" class="form-control"
+                           th:value="${producto != null ? producto.precio : ''}">
+
                 </div>
 
                 <button type="submit" class="btn btn-success">Guardar</button>

@@ -47,4 +47,38 @@ public class CrudControladorProducto {
 
         ctx.redirect("/crudProductos");
     }
+
+    public static void editarProductosForm(Context ctx) {
+        int id = ctx.pathParamAsClass("id", Integer.class).required().get();
+
+        Producto producto = claseControladora.buscarProducto(id);
+
+        if (producto == null) {
+            ctx.redirect("/crudProductos");
+            return;
+        }
+
+        Map<String, Object> modelo = new HashMap<>();
+        modelo.put("titulo", "Editar producto: " + producto.getId());
+        modelo.put("producto", producto);
+        modelo.put("accion", "/crudProductos/editar");
+
+        ctx.render("/templates/crearEditarProductos.html", modelo);
+    }
+
+    public static void procesarEditarProducto(Context ctx) {
+
+        IO.println("EDITAR");
+        int id = ctx.formParamAsClass("id", Integer.class).required().get();
+        String nombre = ctx.formParam("nombre");
+        BigDecimal precio = new BigDecimal(Objects.requireNonNull(ctx.formParam("precio")));
+
+        Producto tmp = new Producto(id, nombre, precio);
+
+        claseControladora.actualizarProducto(tmp);
+
+        ctx.redirect("/crudProductos");
+    }
+
+
 }
