@@ -4,6 +4,7 @@ import edu.pucmm.eict.p2.entidades.CarroCompra;
 import edu.pucmm.eict.p2.servicios.ClaseControladora;
 import io.javalin.http.Context;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,10 +20,10 @@ public class CarroCompraControlador {
         Map<String, Object> modelo = new HashMap<>();
         modelo.put("titulo", "Carrito de compra");
         modelo.put("carroCompra", carroCompra.getListaProductos());
-        //modelo.put("total", claseControladora.obtenerSubTotal());
+        modelo.put("total", claseControladora.calcularTotal(carroCompra));
         modelo.put("nombreCliente", nombreCliente);
 
-        ctx.render("/templates/carroCompra.html");
+        ctx.render("/templates/carroCompra.html", modelo);
 
     }
 
