@@ -22,13 +22,16 @@ public class CrudControladorProducto {
 
         modelo.put("titulo", "Listado de productos");
         modelo.put("listaProductos", productos);
+        modelo.put("usuarioEsAdmin", usuarioEsAdmin(ctx));
+
+        IO.println(ctx.sessionAttribute("usuario"));
 
         ctx.render("/templates/listarProductos.html", modelo);
     }
 
     public static void crearProductosForm(Context ctx) {
 
-        if(!usuarioEsAdmin(ctx)) {
+        if(!validarAdmin(ctx)) {
             return;
         }
 
@@ -41,7 +44,7 @@ public class CrudControladorProducto {
 
     public static void procesarCrearProductos(Context ctx) {
 
-        if(!usuarioEsAdmin(ctx)) {
+        if(!validarAdmin(ctx)) {
             return;
         }
 
@@ -59,7 +62,7 @@ public class CrudControladorProducto {
 
     public static void editarProductosForm(Context ctx) {
 
-        if(!usuarioEsAdmin(ctx)) {
+        if(!validarAdmin(ctx)) {
             return;
         }
 
@@ -82,7 +85,7 @@ public class CrudControladorProducto {
 
     public static void procesarEditarProducto(Context ctx) {
 
-        if(!usuarioEsAdmin(ctx)) {
+        if(!validarAdmin(ctx)) {
             return;
         }
 
@@ -100,7 +103,7 @@ public class CrudControladorProducto {
 
     public static void eliminarProducto(Context ctx) {
 
-        if(!usuarioEsAdmin(ctx)) {
+        if(!validarAdmin(ctx)) {
             return;
         }
 
@@ -111,7 +114,7 @@ public class CrudControladorProducto {
         ctx.redirect("/crudProductos");
     }
 
-    private static boolean usuarioEsAdmin(Context ctx) {
+    private static boolean validarAdmin(Context ctx) {
 
         Usuario usuario = ctx.sessionAttribute("usuario");
 
@@ -121,6 +124,16 @@ public class CrudControladorProducto {
         }
 
         return true;
+    }
+
+    private static boolean usuarioEsAdmin(Context ctx) {
+
+        Usuario usuario = ctx.sessionAttribute("usuario");
+
+        if (usuario != null && usuario.getUsuario().equals("admin")){
+            return true;
+        }
+        return false;
     }
 
 

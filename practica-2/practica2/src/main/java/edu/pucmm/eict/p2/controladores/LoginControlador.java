@@ -25,7 +25,7 @@ public class LoginControlador {
         });
 
         config.routes.get("/login", ctx -> {
-           ctx.render("/templates/login.html");
+           ctx.render("/publico/login.html");
         });
 
 
