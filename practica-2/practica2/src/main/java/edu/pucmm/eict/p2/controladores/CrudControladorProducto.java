@@ -80,5 +80,14 @@ public class CrudControladorProducto {
         ctx.redirect("/crudProductos");
     }
 
+    public static void eliminarProducto(Context ctx) {
+
+        int id = ctx.pathParamAsClass("id", Integer.class).required().get();
+
+        claseControladora.eliminarProducto(id);
+
+        ctx.redirect("/crudProductos");
+    }
+
 
 }

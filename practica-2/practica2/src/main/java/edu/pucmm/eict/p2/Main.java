@@ -45,6 +45,8 @@ public class Main {
 
                     get("/editar/{id}", CrudControladorProducto::editarProductosForm);
                     post("/editar", CrudControladorProducto::procesarEditarProducto);
+
+                    get("/eliminar/{id}", CrudControladorProducto::eliminarProducto);
                 });
 
             });
