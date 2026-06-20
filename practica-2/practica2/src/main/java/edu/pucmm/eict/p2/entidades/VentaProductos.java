@@ -9,7 +9,7 @@ public class VentaProductos {
     private long id;
     private Date fechaCompra;
     private String nombreCliente;
-    private List<Producto> listaProductos;
+    private List<DetalleCarrito> listaProductos;
 
     public VentaProductos() {
         this.listaProductos = new ArrayList<>();
@@ -46,11 +46,11 @@ public class VentaProductos {
         this.nombreCliente = nombreCliente;
     }
 
-    public List<Producto> getListaProductos() {
+    public List<DetalleCarrito> getListaProductos() {
         return listaProductos;
     }
 
-    public void setListaProductos(List<Producto> listaProductos) {
+    public void setListaProductos(List<DetalleCarrito> listaProductos) {
         this.listaProductos = listaProductos;
     }
 
