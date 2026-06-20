@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${titulo}">Listar Productos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
 </head>
 <body>
+    <div class="container">
+        <div class="py-5 text-center border-bottom">
+            <h2 class=" fst-italic fw-bold">Listado de productos</h2>
+        </div>
+
+        <a href="/crudProductos/crear" class="btn btn-primary">Nuevo Producto</a>
+
+        <table class="table table-striped">
+
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="producto : ${listaProductos}">
+                <th th:text="${producto.id}"></th>
+                <td th:text="${producto.nombre}">Producto</td>
+                <td th:text="${producto.precio}">Precio</td>
+                <td>
+                    <a th:text="Editar" th:href="'editar/'+${producto.id}" class="btn btn-secondary btn-sm"></a>
+                    <a th:text="Eliminar" th:href="'eliminar/'+${producto.id}" class="btn btn-danger btn-sm"></a>
+                </td>
+            </tr>
+            </tbody>
+
+
+
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
 
 </body>
 </html>

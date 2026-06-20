@@ -40,21 +40,11 @@ public class Main {
 
                 path("/crudProductos", () -> {
                     get(CrudControladorProducto::listarProductos);
+
+                    get("/crear", CrudControladorProducto::crearProductosForm);
+                    post("/crear", CrudControladorProducto::procesarCrearProductos);
                 });
 
-
-
-                path("/crudProductos/", () -> {
-                    get(ctx -> ctx.redirect("/crudProductos/listarProductos"));
-                    get("/listarProductos", CrudControladorProducto::listarProductos);
-
-                    // get("/crear", CrudTradicionalControlador::crearEstudianteForm);
-                    // post("/crear", CrudTradicionalControlador::procesarCreacionEstudiante);
-                    // get("/visualizar/{matricula}", CrudTradicionalControlador::visualizarEstudiante);
-                    // get("/editar/{matricula}", CrudTradicionalControlador::editarEstudianteForm);
-                    // post("/editar", CrudTradicionalControlador::procesarEditarEstudiante);
-                    // get("/eliminar/{matricula}", CrudTradicionalControlador::eliminarEstudiante);
-                });
             });
 
 
@@ -62,8 +52,6 @@ public class Main {
                 ctx.result("Hola");
 
             });
-
-
 
         });
 

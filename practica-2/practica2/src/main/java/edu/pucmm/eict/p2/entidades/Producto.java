@@ -12,6 +12,11 @@ public class Producto {
 
     }
 
+    public Producto(String nombre, BigDecimal precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
     public Producto(int id, String nombre, BigDecimal precio) {
         this.id = id;
         this.nombre = nombre;
