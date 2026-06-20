@@ -12,7 +12,7 @@
             <h2 class=" fst-italic fw-bold">Listado de productos</h2>
         </div>
 
-        <a href="/crudProductos/crear" class="btn btn-primary">Nuevo Producto</a>
+        <a th:if="${usuarioEsAdmin}" href="/crudProductos/crear" class="btn btn-primary">Nuevo Producto</a>
 
         <table class="table table-striped">
 
@@ -21,6 +21,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Precio</th>
+                <th th:if="${!usuarioEsAdmin}" scope="col">Cantidad</th>
                 <th scope="col">Acciones</th>
             </tr>
             </thead>
@@ -30,7 +31,17 @@
                 <th th:text="${producto.id}"></th>
                 <td th:text="${producto.nombre}">Producto</td>
                 <td th:text="${producto.precio}">Precio</td>
+                <td th:if="${!usuarioEsAdmin}" style="width: 120px;">
+
+                    <form method="post" th:action="'/carritoCompra/agregar' + ${producto.id}" class="d-flex align-items-center justify-content gap-2">
+                        <input type="number" name="cantidad" min="0" value="1" class="form-control text-center col-auto">
+                        <button type="submit" class="btn btn-success mb-1">Agregar</button>
+                    </form>
+
+                </td>
+
                 <td>
+
                     <a th:text="Editar" th:if="${usuarioEsAdmin}" th:href="'/crudProductos/editar/'+${producto.id}" class="btn btn-secondary btn-sm"></a>
                     <a th:text="Eliminar" th:if="${usuarioEsAdmin}" th:href="'crudProductos/eliminar/'+${producto.id}" class="btn btn-danger btn-sm"></a>
                 </td>
