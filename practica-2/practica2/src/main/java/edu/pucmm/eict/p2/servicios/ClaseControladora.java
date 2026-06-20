@@ -1,9 +1,6 @@
 package edu.pucmm.eict.p2.servicios;
 
-import edu.pucmm.eict.p2.entidades.CarroCompra;
-import edu.pucmm.eict.p2.entidades.Producto;
-import edu.pucmm.eict.p2.entidades.Usuario;
-import edu.pucmm.eict.p2.entidades.VentaProductos;
+import edu.pucmm.eict.p2.entidades.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -106,6 +103,60 @@ public class ClaseControladora {
         }
         return null;
     }
+
+    public BigDecimal obtenerSubTotal(DetalleCarrito detalleCarrito) {
+        return detalleCarrito.getProducto().getPrecio().multiply(BigDecimal.valueOf(detalleCarrito.getCantidad()));
+    }
+
+
+    public CarroCompra buscarCarritoPorCliente(String nombreCliente) {
+        for (CarroCompra c : listaCarritos) {
+            if(c.getNombreCliente().equals(nombreCliente)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public CarroCompra crearCarrito(String nombreCliente) {
+        CarroCompra nuevo= new CarroCompra();
+        nuevo.setNombreCliente(nombreCliente);
+        nuevo.setListaProductos(new ArrayList<>());
+        listaCarritos.add(nuevo);
+
+        return nuevo;
+    }
+
+    public CarroCompra obtenerCarrito(String nombreCliente) {
+        CarroCompra carroCompra = buscarCarritoPorCliente(nombreCliente);
+
+        if (carroCompra != null) {
+            return carroCompra;
+        }
+
+        carroCompra = crearCarrito(nombreCliente);
+
+        return carroCompra;
+    }
+
+    public void agregarProductoCarrito(String nombreCliente, Producto producto, int cantidad) {
+        CarroCompra carroCompra = obtenerCarrito(nombreCliente);
+
+        for (DetalleCarrito detalle : carroCompra.getListaProductos())
+        {
+            if(detalle.getProducto().getId() == producto.getId())
+            {
+                detalle.setCantidad(detalle.getCantidad() + cantidad);
+                return;
+            }
+        }
+
+        carroCompra.getListaProductos().add(new DetalleCarrito(producto, cantidad));
+    }
+
+
+
+
 
 
 
