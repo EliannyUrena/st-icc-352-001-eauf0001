@@ -35,11 +35,7 @@ public class Main {
 
             LoginControlador.aplicarRutas(config);
 
-            // Motor de plantillas por defecto: Thymeleaf (usado en /crud-simple y /thymeleaf)
 
-
-
-            // Rutas del API REST (/api/estudiante) y CRUD tradicional (/crud-simple)
             config.routes.apiBuilder(() -> {
 
                 path("/crudProductos", () -> {
@@ -47,13 +43,11 @@ public class Main {
                 });
 
 
-                /**
-                 * CRUD con plantillas Thymeleaf (flujo petición-respuesta tradicional).
-                 * http://localhost:7000/crud-simple/listar
-                 */
+
                 path("/crudProductos/", () -> {
                     get(ctx -> ctx.redirect("/crudProductos/listarProductos"));
                     get("/listarProductos", CrudControladorProducto::listarProductos);
+
                     // get("/crear", CrudTradicionalControlador::crearEstudianteForm);
                     // post("/crear", CrudTradicionalControlador::procesarCreacionEstudiante);
                     // get("/visualizar/{matricula}", CrudTradicionalControlador::visualizarEstudiante);
