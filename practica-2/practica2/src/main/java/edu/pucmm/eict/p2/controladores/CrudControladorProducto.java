@@ -1,6 +1,7 @@
 package edu.pucmm.eict.p2.controladores;
 
 import edu.pucmm.eict.p2.entidades.Producto;
+import edu.pucmm.eict.p2.entidades.Usuario;
 import edu.pucmm.eict.p2.servicios.ClaseControladora;
 import io.javalin.http.Context;
 
@@ -27,6 +28,10 @@ public class CrudControladorProducto {
 
     public static void crearProductosForm(Context ctx) {
 
+        if(!usuarioEsAdmin(ctx)) {
+            return;
+        }
+
         Map<String, Object> modelo = new HashMap<>();
         modelo.put("titulo", "Crear Producto");
         modelo.put("accion", "/crudProductos/crear");
@@ -35,6 +40,10 @@ public class CrudControladorProducto {
     }
 
     public static void procesarCrearProductos(Context ctx) {
+
+        if(!usuarioEsAdmin(ctx)) {
+            return;
+        }
 
         String nombre = ctx.formParam("nombre");
         BigDecimal precio = new BigDecimal(Objects.requireNonNull(ctx.formParam("precio")));
@@ -49,6 +58,11 @@ public class CrudControladorProducto {
     }
 
     public static void editarProductosForm(Context ctx) {
+
+        if(!usuarioEsAdmin(ctx)) {
+            return;
+        }
+
         int id = ctx.pathParamAsClass("id", Integer.class).required().get();
 
         Producto producto = claseControladora.buscarProducto(id);
@@ -68,6 +82,10 @@ public class CrudControladorProducto {
 
     public static void procesarEditarProducto(Context ctx) {
 
+        if(!usuarioEsAdmin(ctx)) {
+            return;
+        }
+
         IO.println("EDITAR");
         int id = ctx.formParamAsClass("id", Integer.class).required().get();
         String nombre = ctx.formParam("nombre");
@@ -82,11 +100,27 @@ public class CrudControladorProducto {
 
     public static void eliminarProducto(Context ctx) {
 
+        if(!usuarioEsAdmin(ctx)) {
+            return;
+        }
+
         int id = ctx.pathParamAsClass("id", Integer.class).required().get();
 
         claseControladora.eliminarProducto(id);
 
         ctx.redirect("/crudProductos");
+    }
+
+    private static boolean usuarioEsAdmin(Context ctx) {
+
+        Usuario usuario = ctx.sessionAttribute("usuario");
+
+        if (usuario == null || !usuario.getUsuario().equals("admin")) {
+            ctx.redirect("/");
+            return false;
+        }
+
+        return true;
     }
 
 

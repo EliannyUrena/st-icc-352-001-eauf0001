@@ -23,5 +23,11 @@ public class LoginControlador {
                 ctx.result("Usuario o contraseña incorrectos");
             }
         });
+
+        config.routes.get("/login", ctx -> {
+           ctx.render("/templates/login.html");
+        });
+
+
     }
 }

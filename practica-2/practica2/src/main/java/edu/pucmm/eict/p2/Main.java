@@ -51,11 +51,13 @@ public class Main {
 
             });
 
-
+            /*
             config.routes.get("/", ctx -> {
                 ctx.result("Hola");
 
-            });
+            });*/
+
+            config.routes.get("/", CrudControladorProducto::listarProductos);
 
         });
 
