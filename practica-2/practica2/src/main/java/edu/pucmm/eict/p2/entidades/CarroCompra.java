@@ -6,13 +6,15 @@ import java.util.List;
 public class CarroCompra {
 
     private long id;
+    private String nombreCliente;
     private List<DetalleCarrito> listaProductos;
 
     public CarroCompra() {
         this.listaProductos = new ArrayList<>();
     }
-    public CarroCompra(long id, List<DetalleCarrito> listaProductos) {
+    public CarroCompra(long id, String nombreCliente, List<DetalleCarrito> listaProductos) {
         this.id = id;
+        this.nombreCliente = nombreCliente;
         this.listaProductos = listaProductos;
     }
 
@@ -29,6 +31,14 @@ public class CarroCompra {
     }
 
     public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
         this.id = id;
     }
 }
