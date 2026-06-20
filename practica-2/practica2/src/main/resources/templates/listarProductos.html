@@ -31,8 +31,8 @@
                 <td th:text="${producto.nombre}">Producto</td>
                 <td th:text="${producto.precio}">Precio</td>
                 <td>
-                    <a th:text="Editar" th:href="'/crudProductos/editar/'+${producto.id}" class="btn btn-secondary btn-sm"></a>
-                    <a th:text="Eliminar" th:href="'crudProductos/eliminar/'+${producto.id}" class="btn btn-danger btn-sm"></a>
+                    <a th:text="Editar" th:if="${usuarioEsAdmin}" th:href="'/crudProductos/editar/'+${producto.id}" class="btn btn-secondary btn-sm"></a>
+                    <a th:text="Eliminar" th:if="${usuarioEsAdmin}" th:href="'crudProductos/eliminar/'+${producto.id}" class="btn btn-danger btn-sm"></a>
                 </td>
             </tr>
             </tbody>
