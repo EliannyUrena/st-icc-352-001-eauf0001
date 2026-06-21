@@ -44,11 +44,26 @@ public class Main {
                 ctx.attribute("cantidad", cantidad);
             });
 
+            config.routes.before("/crudProductos/**", ctx -> {
+                Usuario usuario = ctx.sessionAttribute("usuario");
+
+                if (usuario == null || (!usuario.getUsuario().equals("admin") && !usuario.getPassword().equals("admin"))){
+                    ctx.redirect("/login.html");
+                    IO.println("bloqueado");
+                }
+            });
+
+            config.routes.apiBuilder( () -> {
+                get("/listarProductos", CrudControladorProducto::listarProductos);
+
+            });
+
 
             config.routes.apiBuilder(() -> {
 
                 path("/crudProductos", () -> {
-                    get(CrudControladorProducto::listarProductos);
+
+                    //get(CrudControladorProducto::listarProductos);
 
                     get("/crear", CrudControladorProducto::crearProductosForm);
                     post("/crear", CrudControladorProducto::procesarCrearProductos);
@@ -57,6 +72,8 @@ public class Main {
                     post("/editar", CrudControladorProducto::procesarEditarProducto);
 
                     get("/eliminar/{id}", CrudControladorProducto::eliminarProducto);
+
+                    get("/listarVentas", CarroCompraControlador::listarVentas);
                 });
 
                 path("/carroCompra", () -> {
@@ -66,6 +83,10 @@ public class Main {
                     get("/eliminar/{id}", CarroCompraControlador::eliminarProductoCarrito);
                     get("/limpiar", CarroCompraControlador::limpiarCarrito);
                 });
+
+
+
+
 
             });
 

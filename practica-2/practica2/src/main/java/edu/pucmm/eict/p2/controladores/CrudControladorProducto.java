@@ -56,7 +56,7 @@ public class CrudControladorProducto {
 
         IO.println(producto.getNombre());
 
-        ctx.redirect("/crudProductos");
+        ctx.redirect("/listarProductos");
     }
 
     public static void editarProductosForm(Context ctx) {
@@ -70,7 +70,7 @@ public class CrudControladorProducto {
         Producto producto = claseControladora.buscarProducto(id);
 
         if (producto == null) {
-            ctx.redirect("/crudProductos");
+            ctx.redirect("/listarProductos");
             return;
         }
 
@@ -97,7 +97,7 @@ public class CrudControladorProducto {
 
         claseControladora.actualizarProducto(tmp);
 
-        ctx.redirect("/crudProductos");
+        ctx.redirect("/listarProductos");
     }
 
     public static void eliminarProducto(Context ctx) {
@@ -110,7 +110,7 @@ public class CrudControladorProducto {
 
         claseControladora.eliminarProducto(id);
 
-        ctx.redirect("/crudProductos");
+        ctx.redirect("/listarProductos");
     }
 
     private static boolean validarAdmin(Context ctx) {
