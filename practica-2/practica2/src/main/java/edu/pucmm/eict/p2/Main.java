@@ -47,8 +47,7 @@ public class Main {
             config.routes.before("/crudProductos/**", ctx -> {
                 Usuario usuario = ctx.sessionAttribute("usuario");
 
-                if (usuario == null || (!usuario.getUsuario().equals("admin") &&
-                                        !usuario.getPassword().equals("admin"))){
+                if (usuario == null || (!usuario.getUsuario().equals("admin") && !usuario.getPassword().equals("admin"))){
                     ctx.redirect("/login.html");
                 }
             });

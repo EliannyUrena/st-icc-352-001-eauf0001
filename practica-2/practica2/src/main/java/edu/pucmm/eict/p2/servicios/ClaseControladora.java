@@ -48,6 +48,13 @@ public class ClaseControladora {
         return contadorProducto++;
     }
 
+    private int generarIdUsuario() {
+        return contadorUsuario++;
+    }
+
+    private int generarIdVenta() {
+        return contadorVenta++;
+    }
 
     public Producto crearProducto(Producto p) {
         p.setId(generarIdProducto());
