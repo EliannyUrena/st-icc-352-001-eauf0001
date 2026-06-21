@@ -9,9 +9,48 @@
 </head>
 <body>
 
+<nav class="navbar navbar-light bg-light border-bottom">
+    <div class="container">
+
+        <ul class="nav nav-underline ms-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    Comprar
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    Ventas Realizadas
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/login">
+                    Administrar Productos
+                </a>
+            </li>
+
+            <li class="nav-item" >
+                <a class="nav-link" href="/carroCompra/ver">
+                    Carrito
+                </a>
+            </li>
+
+            <li class="nav-item" th:if="${usuarioEsAdmin}">
+                <a class="nav-link text-danger" href="/logout">
+                    Cerrar Sesión
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
 <div class="container">
 
-    <div class="text-center border-bottom pb-3 mb-4">
+    <div class="py-5 text-center border-bottom">
         <h2 class="fst-italic fw-bold">Carrito de Compra</h2>
     </div>
 
