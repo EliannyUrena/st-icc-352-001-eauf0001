@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+application {
+    mainClass = 'edu.pucmm.eict.p2.Main'
+}
+
+group = 'edu.pucmm.eict'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation("io.javalin:javalin:7.2.2")
+    implementation("org.slf4j:slf4j-simple:2.0.17")
+
+    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    //JSON
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
+    implementation 'io.javalin:javalin-rendering-thymeleaf:7.2.2'
+}
+
+test {
+    useJUnitPlatform()
+}
