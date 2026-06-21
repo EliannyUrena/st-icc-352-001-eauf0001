@@ -1,5 +1,6 @@
 package edu.pucmm.eict.p2;
 
+import edu.pucmm.eict.p2.controladores.CarroCompraControlador;
 import edu.pucmm.eict.p2.controladores.CrudControladorProducto;
 import edu.pucmm.eict.p2.controladores.LoginControlador;
 import edu.pucmm.eict.p2.entidades.Usuario;
@@ -47,6 +48,13 @@ public class Main {
                     post("/editar", CrudControladorProducto::procesarEditarProducto);
 
                     get("/eliminar/{id}", CrudControladorProducto::eliminarProducto);
+                });
+
+                path("/carroCompra", () -> {
+                    get("/ver", CarroCompraControlador:: verCarrito);
+                    post("/procesar", CarroCompraControlador::procesarCompra);
+                    post("/agregar/{id}", CarroCompraControlador::agregarProductoCarrito);
+
                 });
 
             });
