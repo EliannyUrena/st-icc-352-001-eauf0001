@@ -20,7 +20,7 @@ public class LoginControlador {
 
                 ctx.redirect("/");
             } else {
-                ctx.result("Usuario o contraseña incorrectos");
+                ctx.result("Usuario o contrasena incorrectos");
             }
         });
 

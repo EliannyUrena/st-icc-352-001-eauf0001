@@ -49,7 +49,6 @@ public class Main {
 
                 if (usuario == null || (!usuario.getUsuario().equals("admin") && !usuario.getPassword().equals("admin"))){
                     ctx.redirect("/login.html");
-                    IO.println("bloqueado");
                 }
             });
 
@@ -62,8 +61,6 @@ public class Main {
             config.routes.apiBuilder(() -> {
 
                 path("/crudProductos", () -> {
-
-                    //get(CrudControladorProducto::listarProductos);
 
                     get("/crear", CrudControladorProducto::crearProductosForm);
                     post("/crear", CrudControladorProducto::procesarCrearProductos);

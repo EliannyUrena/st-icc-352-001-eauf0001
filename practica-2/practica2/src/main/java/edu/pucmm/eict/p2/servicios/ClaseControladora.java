@@ -19,8 +19,7 @@ public class ClaseControladora {
     private int contadorVenta = 1;
 
     private ClaseControladora() {
-        listaProductos.add(new Producto(generarIdProducto(), "pc", new BigDecimal("4000")));
-        listaUsuarios.add(new Usuario("admin", "elianny", "admin"));
+        listaUsuarios.add(new Usuario("admin", "Elianny", "admin"));
 
     }
 

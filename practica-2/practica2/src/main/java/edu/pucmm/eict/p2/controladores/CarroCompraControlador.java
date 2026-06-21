@@ -33,8 +33,6 @@ public class CarroCompraControlador {
 
     public static void procesarCompra(Context ctx) {
 
-        IO.println("Procesar compra");
-
         CarroCompra carroCompra = ctx.sessionAttribute("carroCompra");
         String nombreCliente = ctx.formParam("nombreCliente");
 
@@ -46,8 +44,6 @@ public class CarroCompraControlador {
         VentaProductos venta = new VentaProductos();
         venta.setNombreCliente(nombreCliente);
         venta.setListaProductos(claseControladora.copiarProductosCarrito(carroCompra));
-
-        IO.println(venta.getNombreCliente());
 
         claseControladora.getListaVentaProductos().add(venta);
         carroCompra.getListaProductos().clear();
@@ -73,17 +69,12 @@ public class CarroCompraControlador {
 
         claseControladora.agregarProductoCarrito(carroCompra, producto, cantidad);
 
-        System.out.println("id: " + idProducto);
-        System.out.println("cant: " + cantidad);
-        System.out.println("Cantidad en carrito: " + carroCompra.getListaProductos().size());
-
         ctx.sessionAttribute("carroCompra", carroCompra);
-        ctx.redirect("/carroCompra/ver");
+        ctx.redirect("/");
 
     }
 
     public static void eliminarProductoCarrito(Context ctx) {
-
 
         int id = ctx.pathParamAsClass("id", Integer.class).required().get();
         CarroCompra carroCompra = ctx.sessionAttribute("carroCompra");
@@ -114,10 +105,7 @@ public class CarroCompraControlador {
         modelo.put("titulo", "Listado de ventas");
         modelo.put("listaVentas", venta);
 
-        //modelo.put("usuarioEsAdmin", usuarioEsAdmin(ctx));
-
         ctx.render("/templates/listarVentas.html", modelo);
     }
-
 
 }

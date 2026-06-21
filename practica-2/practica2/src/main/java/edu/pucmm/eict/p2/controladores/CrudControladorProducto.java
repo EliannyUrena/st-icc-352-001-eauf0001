@@ -23,7 +23,6 @@ public class CrudControladorProducto {
         modelo.put("titulo", "Listado de productos");
         modelo.put("listaProductos", productos);
         modelo.put("usuarioEsAdmin", usuarioEsAdmin(ctx));
-        IO.println(ctx.sessionAttribute("usuario"));
 
         ctx.render("/templates/listarProductos.html", modelo);
     }
@@ -53,8 +52,6 @@ public class CrudControladorProducto {
         Producto producto = new Producto(nombre, precio);
 
         claseControladora.crearProducto(producto);
-
-        IO.println(producto.getNombre());
 
         ctx.redirect("/listarProductos");
     }
@@ -88,7 +85,6 @@ public class CrudControladorProducto {
             return;
         }
 
-        IO.println("EDITAR");
         int id = ctx.formParamAsClass("id", Integer.class).required().get();
         String nombre = ctx.formParam("nombre");
         BigDecimal precio = new BigDecimal(Objects.requireNonNull(ctx.formParam("precio")));
