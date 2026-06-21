@@ -135,4 +135,17 @@ public class ClaseControladora {
         carroCompra.getListaProductos().add(new DetalleCarrito(producto, cantidad));
     }
 
+    public int obtenerCantidadProductosCarrito(CarroCompra carroCompra) {
+
+        int cantidad = 0;
+
+        if (carroCompra == null) {
+            return 0;
+        }
+
+        for (DetalleCarrito detalle : carroCompra.getListaProductos()) {
+            cantidad += detalle.getCantidad();
+        }
+        return cantidad;
+    }
 }
