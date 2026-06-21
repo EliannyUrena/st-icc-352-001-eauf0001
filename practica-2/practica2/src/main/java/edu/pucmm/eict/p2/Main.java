@@ -84,10 +84,6 @@ public class Main {
                     get("/limpiar", CarroCompraControlador::limpiarCarrito);
                 });
 
-
-
-
-
             });
 
             /*
