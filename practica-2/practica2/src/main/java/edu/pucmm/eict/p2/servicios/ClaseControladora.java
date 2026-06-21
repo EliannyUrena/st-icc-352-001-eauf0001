@@ -43,6 +43,8 @@ public class ClaseControladora {
         return listaVentaProductos;
     }
 
+    public List<CarroCompra> getListaCarritos() { return listaCarritos; }
+
     private int generarIdProducto() {
         return contadorProducto++;
     }
@@ -108,39 +110,19 @@ public class ClaseControladora {
         return detalleCarrito.getProducto().getPrecio().multiply(BigDecimal.valueOf(detalleCarrito.getCantidad()));
     }
 
+    public BigDecimal calcularTotal(CarroCompra carroCompra) {
+        BigDecimal total = BigDecimal.valueOf(0);
 
-    public CarroCompra buscarCarritoPorCliente(String nombreCliente) {
-        for (CarroCompra c : listaCarritos) {
-            if(c.getNombreCliente().equals(nombreCliente)) {
-                return c;
-            }
-        }
-        return null;
-    }
+        for (DetalleCarrito detalle : carroCompra.getListaProductos()) {
+            BigDecimal subtotal = obtenerSubTotal(detalle);
 
-    public CarroCompra crearCarrito(String nombreCliente) {
-        CarroCompra nuevo= new CarroCompra();
-        nuevo.setNombreCliente(nombreCliente);
-        nuevo.setListaProductos(new ArrayList<>());
-        listaCarritos.add(nuevo);
-
-        return nuevo;
-    }
-
-    public CarroCompra obtenerCarrito(String nombreCliente) {
-        CarroCompra carroCompra = buscarCarritoPorCliente(nombreCliente);
-
-        if (carroCompra != null) {
-            return carroCompra;
+            total = total.add(subtotal);
         }
 
-        carroCompra = crearCarrito(nombreCliente);
-
-        return carroCompra;
+        return total;
     }
 
-    public void agregarProductoCarrito(String nombreCliente, Producto producto, int cantidad) {
-        CarroCompra carroCompra = obtenerCarrito(nombreCliente);
+    public void agregarProductoCarrito(CarroCompra carroCompra, Producto producto, int cantidad) {
 
         for (DetalleCarrito detalle : carroCompra.getListaProductos())
         {
@@ -150,14 +132,7 @@ public class ClaseControladora {
                 return;
             }
         }
-
         carroCompra.getListaProductos().add(new DetalleCarrito(producto, cantidad));
     }
-
-
-
-
-
-
 
 }
