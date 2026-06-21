@@ -63,7 +63,7 @@ public class Main {
                     get("/ver", CarroCompraControlador:: verCarrito);
                     post("/procesar", CarroCompraControlador::procesarCompra);
                     post("/agregar/{id}", CarroCompraControlador::agregarProductoCarrito);
-
+                    get("/eliminar/{id}", CarroCompraControlador::eliminarProductoCarrito);
                 });
 
             });

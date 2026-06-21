@@ -148,4 +148,11 @@ public class ClaseControladora {
         }
         return cantidad;
     }
+
+    public void eliminarElementoCarrito(CarroCompra carroCompra, int idProducto) {
+
+        if (carroCompra != null) {
+            carroCompra.getListaProductos().removeIf(detalleCarrito -> detalleCarrito.getProducto().getId() == idProducto);
+        }
+    }
 }

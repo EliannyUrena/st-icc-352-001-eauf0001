@@ -85,4 +85,16 @@ public class CarroCompraControlador {
 
     }
 
+    public static void eliminarProductoCarrito(Context ctx) {
+
+
+        int id = ctx.pathParamAsClass("id", Integer.class).required().get();
+        CarroCompra carroCompra = ctx.sessionAttribute("carroCompra");
+        claseControladora.eliminarElementoCarrito(carroCompra, id);
+
+        ctx.sessionAttribute("carroCompra", carroCompra);
+        ctx.redirect("/carroCompra/ver");
+    }
+
+
 }
