@@ -96,5 +96,18 @@ public class CarroCompraControlador {
         ctx.redirect("/carroCompra/ver");
     }
 
+    public static void limpiarCarrito(Context ctx) {
+
+        CarroCompra carrito = ctx.sessionAttribute("carroCompra");
+
+        if (carrito != null) {
+            carrito.getListaProductos().clear();
+        }
+
+        ctx.sessionAttribute("carroCompra", carrito);
+
+        ctx.redirect("/carroCompra/ver");
+    }
+
 
 }
