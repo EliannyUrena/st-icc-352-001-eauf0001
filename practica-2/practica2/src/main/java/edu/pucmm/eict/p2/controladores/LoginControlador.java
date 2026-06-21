@@ -28,6 +28,11 @@ public class LoginControlador {
            ctx.render("/publico/login.html");
         });
 
+        config.routes.get("/logout", ctx -> {
+           ctx.sessionAttribute("usuario", null);
+           ctx.redirect("/");
+        });
+
 
     }
 }
