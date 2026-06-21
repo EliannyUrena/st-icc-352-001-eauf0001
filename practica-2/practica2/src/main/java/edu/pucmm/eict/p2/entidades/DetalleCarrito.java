@@ -1,5 +1,7 @@
 package edu.pucmm.eict.p2.entidades;
 
+import java.math.BigDecimal;
+
 public class DetalleCarrito {
 
     private Producto producto;
@@ -29,4 +31,5 @@ public class DetalleCarrito {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
 }
