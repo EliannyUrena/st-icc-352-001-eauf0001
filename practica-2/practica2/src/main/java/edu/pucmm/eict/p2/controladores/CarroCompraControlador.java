@@ -19,7 +19,7 @@ public class CarroCompraControlador {
     public static void verCarrito(Context ctx) {
 
             CarroCompra carroCompra = ctx.sessionAttribute("carroCompra");
-            System.out.println("Carrito en verCarrito: " + carroCompra);
+
             if (carroCompra == null) {
                 carroCompra = new CarroCompra();
             }
@@ -28,8 +28,6 @@ public class CarroCompraControlador {
             modelo.put("titulo", "Carrito de compra");
             modelo.put("carroCompra", carroCompra.getListaProductos());
             modelo.put("total", claseControladora.calcularTotal(carroCompra));
-
-            System.out.println("Cantidad productos: " + carroCompra.getListaProductos().size());
 
             ctx.render("/templates/carroCompra.html", modelo);
 

@@ -23,7 +23,6 @@ public class CrudControladorProducto {
         modelo.put("titulo", "Listado de productos");
         modelo.put("listaProductos", productos);
         modelo.put("usuarioEsAdmin", usuarioEsAdmin(ctx));
-
         IO.println(ctx.sessionAttribute("usuario"));
 
         ctx.render("/templates/listarProductos.html", modelo);

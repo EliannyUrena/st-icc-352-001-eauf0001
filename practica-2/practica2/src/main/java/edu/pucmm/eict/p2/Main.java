@@ -3,6 +3,7 @@ package edu.pucmm.eict.p2;
 import edu.pucmm.eict.p2.controladores.CarroCompraControlador;
 import edu.pucmm.eict.p2.controladores.CrudControladorProducto;
 import edu.pucmm.eict.p2.controladores.LoginControlador;
+import edu.pucmm.eict.p2.entidades.CarroCompra;
 import edu.pucmm.eict.p2.entidades.Usuario;
 import edu.pucmm.eict.p2.servicios.ClaseControladora;
 import io.javalin.Javalin;
@@ -22,7 +23,7 @@ public class Main {
 
     void main() {
 
-        ClaseControladora s = ClaseControladora.getInstancia();
+        ClaseControladora claseControladora = ClaseControladora.getInstancia();
 
         Javalin app = Javalin.create(config -> {
 
@@ -34,6 +35,14 @@ public class Main {
             });
 
             LoginControlador.aplicarRutas(config);
+
+            config.routes.before(ctx -> {
+                CarroCompra carroCompra = ctx.sessionAttribute("carroCompra");
+
+                int cantidad = claseControladora.obtenerCantidadProductosCarrito(carroCompra);
+
+                ctx.attribute("cantidad", cantidad);
+            });
 
 
             config.routes.apiBuilder(() -> {
