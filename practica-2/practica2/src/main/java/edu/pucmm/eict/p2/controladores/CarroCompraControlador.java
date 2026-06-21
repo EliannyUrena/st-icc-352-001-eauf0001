@@ -3,14 +3,12 @@ package edu.pucmm.eict.p2.controladores;
 import edu.pucmm.eict.p2.entidades.CarroCompra;
 import edu.pucmm.eict.p2.entidades.DetalleCarrito;
 import edu.pucmm.eict.p2.entidades.Producto;
+import edu.pucmm.eict.p2.entidades.VentaProductos;
 import edu.pucmm.eict.p2.servicios.ClaseControladora;
 import io.javalin.http.Context;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class CarroCompraControlador {
 
@@ -37,27 +35,26 @@ public class CarroCompraControlador {
 
         IO.println("Procesar compra");
 
-        String nombreCliente = ctx.formParam("nombreCliente");
-
-        if (nombreCliente == null) {
-            ctx.redirect("/carroCompra/ver");
-            return;
-        }
-
         CarroCompra carroCompra = ctx.sessionAttribute("carroCompra");
+        String nombreCliente = ctx.formParam("nombreCliente");
 
         if (carroCompra == null || carroCompra.getListaProductos().isEmpty()) {
             ctx.redirect("/carroCompra/ver");
             return;
         }
 
-        carroCompra.setNombreCliente(nombreCliente);
+        VentaProductos venta = new VentaProductos();
+        venta.setNombreCliente(nombreCliente);
+        venta.setListaProductos(claseControladora.copiarProductosCarrito(carroCompra));
 
-        claseControladora.getListaCarritos().add(carroCompra);
+        IO.println(venta.getNombreCliente());
+
+        claseControladora.getListaVentaProductos().add(venta);
+        carroCompra.getListaProductos().clear();
 
         ctx.sessionAttribute("carroCompra", new CarroCompra());
 
-        ctx.redirect("/");
+        ctx.redirect("/carroCompra/ver");
     }
 
 
@@ -107,6 +104,19 @@ public class CarroCompraControlador {
         ctx.sessionAttribute("carroCompra", carrito);
 
         ctx.redirect("/carroCompra/ver");
+    }
+
+    public static void listarVentas(Context ctx) {
+
+        List<VentaProductos> venta = claseControladora.getListaVentaProductos();
+        Map<String, Object> modelo = new HashMap<>();
+
+        modelo.put("titulo", "Listado de ventas");
+        modelo.put("listaVentas", venta);
+
+        //modelo.put("usuarioEsAdmin", usuarioEsAdmin(ctx));
+
+        ctx.render("/templates/listarVentas.html", modelo);
     }
 
 

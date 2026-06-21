@@ -122,6 +122,18 @@ public class ClaseControladora {
         return total;
     }
 
+    public BigDecimal calcularTotalProductosVenta(VentaProductos venta) {
+        BigDecimal total = BigDecimal.valueOf(0);
+
+        for (DetalleCarrito detalle : venta.getListaProductos()) {
+            BigDecimal subtotal = obtenerSubTotal(detalle);
+
+            total = total.add(subtotal);
+        }
+
+        return total;
+    }
+
     public void agregarProductoCarrito(CarroCompra carroCompra, Producto producto, int cantidad) {
 
         for (DetalleCarrito detalle : carroCompra.getListaProductos())
@@ -154,5 +166,16 @@ public class ClaseControladora {
         if (carroCompra != null) {
             carroCompra.getListaProductos().removeIf(detalleCarrito -> detalleCarrito.getProducto().getId() == idProducto);
         }
+    }
+
+    public List<DetalleCarrito> copiarProductosCarrito(CarroCompra carroCompra) {
+        List<DetalleCarrito> copia = new ArrayList<>();
+
+        if (carroCompra != null) {
+            for (DetalleCarrito detalle : carroCompra.getListaProductos()) {
+                copia.add(detalle);
+            }
+        }
+        return copia;
     }
 }
