@@ -1,6 +1,4 @@
-package edu.pucmm.eict.p2.entidades;
-
-import java.math.BigDecimal;
+package edu.pucmm.eict.p3.entidades;
 
 public class DetalleCarrito {
 

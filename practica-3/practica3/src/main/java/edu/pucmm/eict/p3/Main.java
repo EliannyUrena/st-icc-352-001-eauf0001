@@ -1,17 +1,16 @@
-package edu.pucmm.eict.p2;
+package edu.pucmm.eict.p3;
 
-import edu.pucmm.eict.p2.controladores.CarroCompraControlador;
-import edu.pucmm.eict.p2.controladores.CrudControladorProducto;
-import edu.pucmm.eict.p2.controladores.LoginControlador;
-import edu.pucmm.eict.p2.entidades.CarroCompra;
-import edu.pucmm.eict.p2.entidades.Usuario;
-import edu.pucmm.eict.p2.servicios.ClaseControladora;
+import edu.pucmm.eict.p3.controladores.CarroCompraControlador;
+import edu.pucmm.eict.p3.controladores.CrudControladorProducto;
+import edu.pucmm.eict.p3.controladores.LoginControlador;
+import edu.pucmm.eict.p3.entidades.CarroCompra;
+import edu.pucmm.eict.p3.entidades.Usuario;
+import edu.pucmm.eict.p3.servicios.ClaseControladora;
 import io.javalin.Javalin;
 
 
 import io.javalin.rendering.template.JavalinThymeleaf;
 
-import static io.javalin.apibuilder.ApiBuilder.*;
 import static io.javalin.apibuilder.ApiBuilder.delete;
 import static io.javalin.apibuilder.ApiBuilder.get;
 import static io.javalin.apibuilder.ApiBuilder.path;

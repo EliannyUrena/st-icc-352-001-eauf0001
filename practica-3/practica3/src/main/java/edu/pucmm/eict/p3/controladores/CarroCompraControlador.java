@@ -1,13 +1,11 @@
-package edu.pucmm.eict.p2.controladores;
+package edu.pucmm.eict.p3.controladores;
 
-import edu.pucmm.eict.p2.entidades.CarroCompra;
-import edu.pucmm.eict.p2.entidades.DetalleCarrito;
-import edu.pucmm.eict.p2.entidades.Producto;
-import edu.pucmm.eict.p2.entidades.VentaProductos;
-import edu.pucmm.eict.p2.servicios.ClaseControladora;
+import edu.pucmm.eict.p3.entidades.CarroCompra;
+import edu.pucmm.eict.p3.entidades.Producto;
+import edu.pucmm.eict.p3.entidades.VentaProductos;
+import edu.pucmm.eict.p3.servicios.ClaseControladora;
 import io.javalin.http.Context;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 public class CarroCompraControlador {

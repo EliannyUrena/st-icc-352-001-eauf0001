@@ -1,6 +1,6 @@
-package edu.pucmm.eict.p2.servicios;
+package edu.pucmm.eict.p3.servicios;
 
-import edu.pucmm.eict.p2.entidades.*;
+import edu.pucmm.eict.p3.entidades.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
