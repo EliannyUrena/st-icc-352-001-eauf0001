@@ -1,5 +1,6 @@
 package edu.pucmm.eict.p3.servicios;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -20,6 +21,21 @@ public class GestionDB<T> {
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+
+    public T crear(T entidad) throws EntityExistsException {
+
+        EntityManager em = getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(entidad);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
+        return entidad;
     }
 
 }
