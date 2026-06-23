@@ -4,7 +4,7 @@ plugins {
 }
 
 application {
-    mainClass = 'edu.pucmm.eict.p2.Main'
+    mainClass = 'edu.pucmm.eict.p3.Main'
 }
 
 group = 'edu.pucmm.eict'

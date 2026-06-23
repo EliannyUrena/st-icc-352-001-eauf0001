@@ -4,12 +4,18 @@ import edu.pucmm.eict.p3.controladores.CarroCompraControlador;
 import edu.pucmm.eict.p3.controladores.CrudControladorProducto;
 import edu.pucmm.eict.p3.controladores.LoginControlador;
 import edu.pucmm.eict.p3.entidades.CarroCompra;
+import edu.pucmm.eict.p3.entidades.Producto;
 import edu.pucmm.eict.p3.entidades.Usuario;
+import edu.pucmm.eict.p3.servicios.BootStrapServices;
 import edu.pucmm.eict.p3.servicios.ClaseControladora;
 import io.javalin.Javalin;
 
 
 import io.javalin.rendering.template.JavalinThymeleaf;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
+
+import java.math.BigDecimal;
 
 import static io.javalin.apibuilder.ApiBuilder.delete;
 import static io.javalin.apibuilder.ApiBuilder.get;
@@ -21,6 +27,14 @@ import static io.javalin.apibuilder.ApiBuilder.put;
 public class Main {
 
     void main() {
+
+        BootStrapServices.getInstancia().init();
+
+        EntityManager em = Persistence.createEntityManagerFactory("MiUnidadPersistencia").createEntityManager();
+        em.getTransaction().begin();
+        em.persist(new Producto(1, "pera", new BigDecimal(700)));
+        em.getTransaction().commit();
+        em.close();
 
         ClaseControladora claseControladora = ClaseControladora.getInstancia();
 
