@@ -30,11 +30,12 @@ public class Main {
 
         BootStrapServices.getInstancia().init();
 
-        EntityManager em = Persistence.createEntityManagerFactory("MiUnidadPersistencia").createEntityManager();
-        em.getTransaction().begin();
-        em.persist(new Producto(1, "pera", new BigDecimal(700)));
-        em.getTransaction().commit();
-        em.close();
+        //EntityManager em = Persistence.createEntityManagerFactory("MiUnidadPersistencia").createEntityManager();
+        //em.createQuery("DELETE FROM Producto p").executeUpdate();
+        //em.getTransaction().begin();
+        //em.persist(new Producto(1, "pera", new BigDecimal(700)));
+        //em.getTransaction().commit();
+        //em.close();
 
         ClaseControladora claseControladora = ClaseControladora.getInstancia();
 

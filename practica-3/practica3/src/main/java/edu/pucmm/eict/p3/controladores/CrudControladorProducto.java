@@ -3,6 +3,7 @@ package edu.pucmm.eict.p3.controladores;
 import edu.pucmm.eict.p3.entidades.Producto;
 import edu.pucmm.eict.p3.entidades.Usuario;
 import edu.pucmm.eict.p3.servicios.ClaseControladora;
+import edu.pucmm.eict.p3.servicios.ProductoServices;
 import io.javalin.http.Context;
 
 import java.math.BigDecimal;
@@ -17,7 +18,8 @@ public class CrudControladorProducto {
 
     public static void listarProductos(Context ctx) {
 
-        List<Producto> productos = claseControladora.getListaProductos();
+        //List<Producto> productos = claseControladora.getListaProductos();
+        List<Producto> productos = ProductoServices.getInstancia().findAll();
         Map<String, Object> modelo = new HashMap<>();
 
         modelo.put("titulo", "Listado de productos");
@@ -47,11 +49,14 @@ public class CrudControladorProducto {
         }
 
         String nombre = ctx.formParam("nombre");
-        BigDecimal precio = new BigDecimal(Objects.requireNonNull(ctx.formParam("precio")));
+        int precio = Integer.parseInt(Objects.requireNonNull(ctx.formParam("precio")));
 
-        Producto producto = new Producto(nombre, precio);
+        Producto producto = new Producto();
+        producto.setNombre(nombre);
+        producto.setPrecio(new BigDecimal(precio));
 
-        claseControladora.crearProducto(producto);
+        //claseControladora.crearProducto(producto);
+        ProductoServices.getInstancia().crear(producto);
 
         ctx.redirect("/listarProductos");
     }
