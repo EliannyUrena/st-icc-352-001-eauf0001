@@ -1,7 +1,9 @@
 package edu.pucmm.eict.p3.servicios;
 
+import edu.pucmm.eict.p3.entidades.Usuario;
 import org.h2.tools.Server;
 import java.sql.SQLException;
+import java.util.List;
 
 public class BootStrapServices {
 
@@ -34,7 +36,28 @@ public class BootStrapServices {
         }
     }
 
+    public void crearUsuarioAdmin() {
+
+        UsuarioServices usuario = UsuarioServices.getInstancia();
+        List<Usuario> listaUsuarios = usuario.findAll();
+
+        if (listaUsuarios.isEmpty()) {
+
+            Usuario admin = new Usuario();
+            admin.setUsuario("admin");
+            admin.setNombre("Administrador");
+            admin.setPassword("admin");
+
+            usuario.crear(admin);
+
+        }
+
+
+
+    }
+
     public void init(){
         startDb();
+        crearUsuarioAdmin();
     }
 }
