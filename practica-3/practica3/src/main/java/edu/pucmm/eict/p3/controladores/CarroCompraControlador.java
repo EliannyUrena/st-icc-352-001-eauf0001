@@ -4,6 +4,7 @@ import edu.pucmm.eict.p3.entidades.CarroCompra;
 import edu.pucmm.eict.p3.entidades.Producto;
 import edu.pucmm.eict.p3.entidades.VentaProductos;
 import edu.pucmm.eict.p3.servicios.ClaseControladora;
+import edu.pucmm.eict.p3.servicios.ProductoServices;
 import io.javalin.http.Context;
 
 import java.util.*;
@@ -56,8 +57,8 @@ public class CarroCompraControlador {
 
         int idProducto = ctx.pathParamAsClass("id", Integer.class).required().get();
         int cantidad = ctx.formParamAsClass("cantidad", Integer.class).get();
-        Producto producto = claseControladora.buscarProducto(idProducto);
-
+        //Producto producto = claseControladora.buscarProducto(idProducto);
+        Producto producto = ProductoServices.getInstancia().find(idProducto);
         CarroCompra carroCompra = ctx.sessionAttribute("carroCompra");
 
         if (carroCompra == null) {
@@ -102,6 +103,7 @@ public class CarroCompraControlador {
 
         modelo.put("titulo", "Listado de ventas");
         modelo.put("listaVentas", venta);
+        modelo.put("usuario", ctx.sessionAttribute("usuario"));
 
         ctx.render("/templates/listarVentas.html", modelo);
     }
