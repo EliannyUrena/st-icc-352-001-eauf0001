@@ -34,6 +34,8 @@ dependencies {
     //Driver de la conexión en h2...
     implementation 'com.h2database:h2:2.4.240'
     implementation 'org.postgresql:postgresql:42.7.11'
+
+    implementation 'org.jasypt:jasypt:1.9.3'
 }
 
 test {
