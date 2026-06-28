@@ -1,9 +1,9 @@
 package edu.pucmm.eict.p3.servicios;
 
-import jakarta.persistence.EntityExistsException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaQuery;
+
+import java.util.List;
 
 public class GestionDB<T> {
 
@@ -37,5 +37,40 @@ public class GestionDB<T> {
 
         return entidad;
     }
+
+    public T find(Object id) throws PersistenceException {
+        EntityManager em = getEntityManager();
+        try{
+            return em.find(claseEntidad, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<T> findAll() throws PersistenceException {
+        EntityManager em = getEntityManager();
+        try{
+            CriteriaQuery<T> criteriaQuery = em.getCriteriaBuilder().createQuery(claseEntidad);
+            criteriaQuery.select(criteriaQuery.from(claseEntidad));
+            return em.createQuery(criteriaQuery).getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public T editar(T entidad) throws PersistenceException{
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        try {
+            em.merge(entidad);
+            em.getTransaction().commit();
+        }finally {
+            em.close();
+        }
+        return entidad;
+    }
+
+
+
 
 }

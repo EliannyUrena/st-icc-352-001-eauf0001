@@ -69,7 +69,8 @@ public class CrudControladorProducto {
 
         int id = ctx.pathParamAsClass("id", Integer.class).required().get();
 
-        Producto producto = claseControladora.buscarProducto(id);
+        //Producto producto = claseControladora.buscarProducto(id);
+        Producto producto = ProductoServices.getInstancia().find(id);
 
         if (producto == null) {
             ctx.redirect("/listarProductos");
@@ -94,10 +95,11 @@ public class CrudControladorProducto {
         String nombre = ctx.formParam("nombre");
         BigDecimal precio = new BigDecimal(Objects.requireNonNull(ctx.formParam("precio")));
 
-        Producto tmp = new Producto(id, nombre, precio);
+        Producto producto = ProductoServices.getInstancia().find(id);
+        producto.setNombre(nombre);
+        producto.setPrecio(precio);
 
-        claseControladora.actualizarProducto(tmp);
-
+        ProductoServices.getInstancia().editar(producto);
         ctx.redirect("/listarProductos");
     }
 
