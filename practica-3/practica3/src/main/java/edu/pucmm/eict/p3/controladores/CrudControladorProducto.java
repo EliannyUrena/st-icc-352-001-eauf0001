@@ -4,6 +4,7 @@ import edu.pucmm.eict.p3.entidades.Producto;
 import edu.pucmm.eict.p3.entidades.Usuario;
 import edu.pucmm.eict.p3.servicios.ClaseControladora;
 import edu.pucmm.eict.p3.servicios.ProductoServices;
+import edu.pucmm.eict.p3.servicios.UsuarioServices;
 import io.javalin.http.Context;
 
 import java.math.BigDecimal;
@@ -21,19 +22,14 @@ public class CrudControladorProducto {
         //List<Producto> productos = claseControladora.getListaProductos();
         List<Producto> productos = ProductoServices.getInstancia().findAll();
         Map<String, Object> modelo = new HashMap<>();
-
         modelo.put("titulo", "Listado de productos");
         modelo.put("listaProductos", productos);
-        modelo.put("usuarioEsAdmin", usuarioEsAdmin(ctx));
+        modelo.put("usuario",ctx.sessionAttribute("usuario"));
 
         ctx.render("/templates/listarProductos.html", modelo);
     }
 
     public static void crearProductosForm(Context ctx) {
-
-        if(!validarAdmin(ctx)) {
-            return;
-        }
 
         Map<String, Object> modelo = new HashMap<>();
         modelo.put("titulo", "Crear Producto");
@@ -43,10 +39,6 @@ public class CrudControladorProducto {
     }
 
     public static void procesarCrearProductos(Context ctx) {
-
-        if(!validarAdmin(ctx)) {
-            return;
-        }
 
         String nombre = ctx.formParam("nombre");
         int precio = Integer.parseInt(Objects.requireNonNull(ctx.formParam("precio")));
@@ -62,10 +54,6 @@ public class CrudControladorProducto {
     }
 
     public static void editarProductosForm(Context ctx) {
-
-        if(!validarAdmin(ctx)) {
-            return;
-        }
 
         int id = ctx.pathParamAsClass("id", Integer.class).required().get();
 
@@ -87,10 +75,6 @@ public class CrudControladorProducto {
 
     public static void procesarEditarProducto(Context ctx) {
 
-        if(!validarAdmin(ctx)) {
-            return;
-        }
-
         int id = ctx.formParamAsClass("id", Integer.class).required().get();
         String nombre = ctx.formParam("nombre");
         BigDecimal precio = new BigDecimal(Objects.requireNonNull(ctx.formParam("precio")));
@@ -105,10 +89,6 @@ public class CrudControladorProducto {
 
     public static void eliminarProducto(Context ctx) {
 
-        if(!validarAdmin(ctx)) {
-            return;
-        }
-
         int id = ctx.pathParamAsClass("id", Integer.class).required().get();
 
         ProductoServices.getInstancia().eliminar(id);
@@ -116,28 +96,5 @@ public class CrudControladorProducto {
 
         ctx.redirect("/listarProductos");
     }
-
-    private static boolean validarAdmin(Context ctx) {
-
-        Usuario usuario = ctx.sessionAttribute("usuario");
-
-        if (usuario == null || !usuario.getUsuario().equals("admin")) {
-            ctx.redirect("/");
-            return false;
-        }
-
-        return true;
-    }
-
-    private static boolean usuarioEsAdmin(Context ctx) {
-
-        Usuario usuario = ctx.sessionAttribute("usuario");
-
-        if (usuario != null && usuario.getUsuario().equals("admin")){
-            return true;
-        }
-        return false;
-    }
-
 
 }
