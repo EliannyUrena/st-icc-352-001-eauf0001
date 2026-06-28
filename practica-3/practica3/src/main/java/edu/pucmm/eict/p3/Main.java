@@ -2,12 +2,14 @@ package edu.pucmm.eict.p3;
 
 import edu.pucmm.eict.p3.controladores.CarroCompraControlador;
 import edu.pucmm.eict.p3.controladores.CrudControladorProducto;
+import edu.pucmm.eict.p3.controladores.Encriptador;
 import edu.pucmm.eict.p3.controladores.LoginControlador;
 import edu.pucmm.eict.p3.entidades.CarroCompra;
 import edu.pucmm.eict.p3.entidades.Producto;
 import edu.pucmm.eict.p3.entidades.Usuario;
 import edu.pucmm.eict.p3.servicios.BootStrapServices;
 import edu.pucmm.eict.p3.servicios.ClaseControladora;
+import edu.pucmm.eict.p3.servicios.UsuarioServices;
 import io.javalin.Javalin;
 
 
@@ -30,12 +32,10 @@ public class Main {
 
         BootStrapServices.getInstancia().init();
 
-        //EntityManager em = Persistence.createEntityManagerFactory("MiUnidadPersistencia").createEntityManager();
-        //em.createQuery("DELETE FROM Producto p").executeUpdate();
-        //em.getTransaction().begin();
-        //em.persist(new Producto(1, "pera", new BigDecimal(700)));
-        //em.getTransaction().commit();
-        //em.close();
+        UsuarioServices.getInstancia();
+        EntityManager em = Persistence
+                .createEntityManagerFactory("MiUnidadPersistencia")
+                .createEntityManager();
 
         ClaseControladora claseControladora = ClaseControladora.getInstancia();
 
@@ -48,8 +48,6 @@ public class Main {
                 staticFileConfig.directory = "/publico";
             });
 
-            LoginControlador.aplicarRutas(config);
-
             config.routes.before(ctx -> {
                 CarroCompra carroCompra = ctx.sessionAttribute("carroCompra");
 
@@ -58,11 +56,43 @@ public class Main {
                 ctx.attribute("cantidad", cantidad);
             });
 
+            config.routes.before(ctx -> {
+                if (ctx.sessionAttribute("usuario") == null) {
+                    String cookie = ctx.cookie("usuario");
+
+                    if (cookie != null) {
+
+                        try {
+                            Encriptador encriptador = new Encriptador();
+                            String nombreUsuario = encriptador.desencriptar(cookie);
+
+                            System.out.println("NOMBREUSUARIO: " + nombreUsuario);
+                            Usuario usuario = UsuarioServices.getInstancia().buscarUsuario(nombreUsuario);
+                            System.out.println("USUARIO BD: " + usuario);
+
+
+                            if (usuario != null) {
+                                ctx.sessionAttribute("usuario", usuario);
+
+                                IO.println("COOKIE: " + ctx.cookie("usuario"));
+                            }
+
+                        } catch (Exception e) {
+                            ctx.removeCookie("usuario");
+                        }
+                    }
+                }
+
+            });
+
+            LoginControlador.aplicarRutas(config);
+
             config.routes.before("/crudProductos/**", ctx -> {
                 Usuario usuario = ctx.sessionAttribute("usuario");
 
-                if (usuario == null || (!usuario.getUsuario().equals("admin") && !usuario.getPassword().equals("admin"))){
-                    ctx.redirect("/login.html");
+                if (usuario == null || !usuario.getUsuario().equals("admin")){
+                    ctx.redirect("/login");
+                    return;
                 }
             });
 
@@ -96,6 +126,8 @@ public class Main {
                 });
 
             });
+
+            System.out.println(UsuarioServices.getInstancia().findAll());
 
             /*
             config.routes.get("/", ctx -> {
