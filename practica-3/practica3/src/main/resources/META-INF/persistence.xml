@@ -5,6 +5,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>edu.pucmm.eict.p3.entidades.Producto</class>
+        <class>edu.pucmm.eict.p3.entidades.Usuario</class>
 
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />-->
