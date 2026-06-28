@@ -21,13 +21,13 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/crudProductos/listarVentas">
+                <a class="nav-link" href="/crudProductos/listarVentas" th:if="${usuario != null and usuario.usuario == 'admin'}">
                     Ventas Realizadas
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/login">
+                <a class="nav-link" href="/" th:if="${usuario != null and usuario.usuario == 'admin'}">
                     Administrar Productos
                 </a>
             </li>
@@ -38,7 +38,7 @@
                 </a>
             </li>
 
-            <li class="nav-item" th:if="${usuarioEsAdmin}">
+            <li class="nav-item" th:if="${usuario != null and usuario.usuario == 'admin'}">
                 <a class="nav-link text-danger" href="/logout">
                     Cerrar Sesión
                 </a>

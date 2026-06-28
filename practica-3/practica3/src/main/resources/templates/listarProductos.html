@@ -20,16 +20,17 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/crudProductos/listarVentas">
+                    <a class="nav-link" href="/crudProductos/listarVentas" th:if="${usuario != null and usuario.usuario == 'admin'}">
                         Ventas Realizadas
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">
+                    <a class="nav-link" href="/" th:if="${usuario != null and usuario.usuario == 'admin'}">
                         Administrar Productos
                     </a>
                 </li>
+
 
                 <li class="nav-item" >
                     <a class="nav-link" href="/carroCompra/ver">
@@ -37,7 +38,13 @@
                     </a>
                 </li>
 
-                <li class="nav-item" th:if="${usuarioEsAdmin}">
+                <li class="nav-item" th:if="${usuario == null}">
+                    <a class="nav-link" href="/login">
+                        Iniciar Sesión
+                    </a>
+                </li>
+
+                <li class="nav-item" th:if="${usuario != null}">
                     <a class="nav-link text-danger" href="/logout">
                         Cerrar Sesión
                     </a>
@@ -52,7 +59,7 @@
             <h2 class=" fst-italic fw-bold">Listado de productos</h2>
         </div>
 
-        <a th:if="${usuarioEsAdmin}" href="/crudProductos/crear" class="btn btn-primary">Nuevo Producto</a>
+        <a th:if="${usuario != null and usuario.usuario == 'admin'}" href="/crudProductos/crear" class="btn btn-primary">Nuevo Producto</a>
 
         <table class="table table-striped">
 
@@ -61,7 +68,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Precio</th>
-                <th th:if="${!usuarioEsAdmin}" scope="col">Cantidad</th>
+                <th th:if="${usuario == null or usuario.usuario != 'admin'}" scope="col">Cantidad</th>
                 <th scope="col">Acciones</th>
             </tr>
             </thead>
@@ -71,7 +78,7 @@
                 <th th:text="${producto.id}"></th>
                 <td th:text="${producto.nombre}">Producto</td>
                 <td th:text="${producto.precio}">Precio</td>
-                <td th:if="${!usuarioEsAdmin}" style="width: 120px;">
+                <td th:if="${usuario == null or usuario.usuario != 'admin'}" style="width: 120px;">
 
                     <form method="post" th:action="@{'/carroCompra/agregar/' + ${producto.id}}" class="d-flex align-items-center justify-content gap-2">
                         <input type="number" name="cantidad" min="0" value="1" class="form-control text-center col-auto">
@@ -82,8 +89,8 @@
 
                 <td>
 
-                    <a th:text="Editar" th:if="${usuarioEsAdmin}" th:href="'/crudProductos/editar/'+${producto.id}" class="btn btn-secondary btn-sm"></a>
-                    <a th:text="Eliminar" th:if="${usuarioEsAdmin}" th:href="'/crudProductos/eliminar/'+${producto.id}" class="btn btn-danger btn-sm"></a>
+                    <a th:text="Editar" th:if="${usuario != null and usuario.usuario == 'admin'}" th:href="'/crudProductos/editar/'+${producto.id}" class="btn btn-secondary btn-sm"></a>
+                    <a th:text="Eliminar" th:if="${usuario != null and usuario.usuario == 'admin'}" th:href="'/crudProductos/eliminar/'+${producto.id}" class="btn btn-danger btn-sm"></a>
                 </td>
             </tr>
             </tbody>
