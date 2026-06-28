@@ -70,6 +70,21 @@ public class GestionDB<T> {
         return entidad;
     }
 
+    public boolean eliminar(Object entidadId) throws PersistenceException{
+        boolean ok = false;
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        try {
+            T entidad = em.find(claseEntidad, entidadId);
+            em.remove(entidad);
+            em.getTransaction().commit();
+            ok = true;
+        }finally {
+            em.close();
+        }
+        return ok;
+    }
+
 
 
 

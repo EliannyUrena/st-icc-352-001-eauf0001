@@ -111,7 +111,8 @@ public class CrudControladorProducto {
 
         int id = ctx.pathParamAsClass("id", Integer.class).required().get();
 
-        claseControladora.eliminarProducto(id);
+        ProductoServices.getInstancia().eliminar(id);
+        //claseControladora.eliminarProducto(id);
 
         ctx.redirect("/listarProductos");
     }
