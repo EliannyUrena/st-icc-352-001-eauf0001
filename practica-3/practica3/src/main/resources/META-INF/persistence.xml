@@ -6,10 +6,11 @@
 
         <class>edu.pucmm.eict.p3.entidades.Producto</class>
         <class>edu.pucmm.eict.p3.entidades.Usuario</class>
+        <class>edu.pucmm.eict.p3.entidades.Foto</class>
 
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />-->
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost:9092/./db/carroCompra" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost:9093/./db/carroCompra" />
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" />
             <property name="jakarta.persistence.jdbc.user" value="sa" />
             <property name="jakarta.persistence.jdbc.password" value="" />

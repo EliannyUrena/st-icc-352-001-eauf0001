@@ -1,9 +1,6 @@
 package edu.pucmm.eict.p3;
 
-import edu.pucmm.eict.p3.controladores.CarroCompraControlador;
-import edu.pucmm.eict.p3.controladores.CrudControladorProducto;
-import edu.pucmm.eict.p3.controladores.Encriptador;
-import edu.pucmm.eict.p3.controladores.LoginControlador;
+import edu.pucmm.eict.p3.controladores.*;
 import edu.pucmm.eict.p3.entidades.CarroCompra;
 import edu.pucmm.eict.p3.entidades.Producto;
 import edu.pucmm.eict.p3.entidades.Usuario;
@@ -28,7 +25,7 @@ import static io.javalin.apibuilder.ApiBuilder.put;
 
 public class Main {
 
-    void main() {
+    public static void main(String[] args) {
 
         BootStrapServices.getInstancia().init();
 

@@ -1,11 +1,10 @@
 package edu.pucmm.eict.p3.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Producto {
@@ -16,6 +15,10 @@ public class Producto {
     private String nombre;
     private BigDecimal precio;
 
+    private String descripcionProducto;
+    @OneToMany (mappedBy = "producto", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Foto> fotos = new ArrayList<>();
+
     public Producto() {
 
     }
@@ -25,10 +28,11 @@ public class Producto {
         this.precio = precio;
     }
 
-    public Producto(int id, String nombre, BigDecimal precio) {
+    public Producto(int id, String nombre, BigDecimal precio, String descripcionProducto) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
+        this.descripcionProducto = descripcionProducto;
     }
 
     public int getId() {
@@ -55,4 +59,17 @@ public class Producto {
         this.precio = precio;
     }
 
+    public String getDescripcionProducto() {
+        return descripcionProducto;
+    }
+
+    public void setDescripcionProducto(String descripcionProducto) { this.descripcionProducto = descripcionProducto; }
+
+    public List<Foto> getFotos() {
+        return fotos;
+    }
+
+    public void setFotos(List<Foto> fotos) {
+        this.fotos = fotos;
+    }
 }

@@ -19,28 +19,41 @@
 
         <div class="card-body">
 
-            <form method="post" th:attr="action=${accion}">
+            <form method="post" th:attr="action=${accion}" enctype="multipart/form-data">
 
-                <input type="hidden"
-                       name="id"
-                       th:value="${producto != null ? producto.id : ''}">
+                    <input type="hidden"
+                           name="id"
+                           th:value="${producto != null ? producto.id : ''}">
 
-                <div class="mb-3">
-                    <label class="form-label">Nombre </label>
-                    <input type="text" name="nombre" class="form-control"
-                           th:value="${producto != null ? producto.nombre : ''}">
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nombre </label>
+                        <input type="text" name="nombre" class="form-control"
+                               th:value="${producto != null ? producto.nombre : ''}">
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Precio </label>
-                    <input type="number" min="0" name="precio" class="form-control"
-                           th:value="${producto != null ? producto.precio : ''}">
+                    <div class="mb-3">
+                        <label class="form-label">Precio </label>
+                        <input type="number" min="0" name="precio" class="form-control"
+                               th:value="${producto != null ? producto.precio : ''}">
 
-                </div>
+                    </div>
 
-                <button type="submit" class="btn btn-success">Guardar</button>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <input type="text" name="descripcion" class="form-control"
+                               th:value="${producto != null ? producto.descripcionProducto : ''}">
+                    </div>
 
-                <a href="/crudProductos/" class="btn btn-danger">Cancelar</a>
+                    <div class="form-group">
+                        <label class="form-label">Imagen del producto</label>
+
+                        <input type="file"
+                            class="form-control" name="foto"  multiple required >
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Guardar</button>
+
+                        <a href="/crudProductos/" class="btn btn-danger">Cancelar</a>
 
             </form>
 

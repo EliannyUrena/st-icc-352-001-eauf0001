@@ -1,11 +1,13 @@
 package edu.pucmm.eict.p3.controladores;
 
+import edu.pucmm.eict.p3.entidades.Foto;
 import edu.pucmm.eict.p3.entidades.Producto;
 import edu.pucmm.eict.p3.entidades.Usuario;
 import edu.pucmm.eict.p3.servicios.ClaseControladora;
 import edu.pucmm.eict.p3.servicios.ProductoServices;
 import edu.pucmm.eict.p3.servicios.UsuarioServices;
 import io.javalin.http.Context;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -19,7 +21,6 @@ public class CrudControladorProducto {
 
     public static void listarProductos(Context ctx) {
 
-        //List<Producto> productos = claseControladora.getListaProductos();
         List<Producto> productos = ProductoServices.getInstancia().findAll();
         Map<String, Object> modelo = new HashMap<>();
         modelo.put("titulo", "Listado de productos");
@@ -42,13 +43,15 @@ public class CrudControladorProducto {
 
         String nombre = ctx.formParam("nombre");
         int precio = Integer.parseInt(Objects.requireNonNull(ctx.formParam("precio")));
+        String descripcionProducto = ctx.formParam("descripcion");
 
         Producto producto = new Producto();
         producto.setNombre(nombre);
         producto.setPrecio(new BigDecimal(precio));
+        producto.setDescripcionProducto(descripcionProducto);
 
-        //claseControladora.crearProducto(producto);
         ProductoServices.getInstancia().crear(producto);
+        FotoControlador.procesarFotos(ctx, producto);
 
         ctx.redirect("/listarProductos");
     }
@@ -78,10 +81,15 @@ public class CrudControladorProducto {
         int id = ctx.formParamAsClass("id", Integer.class).required().get();
         String nombre = ctx.formParam("nombre");
         BigDecimal precio = new BigDecimal(Objects.requireNonNull(ctx.formParam("precio")));
+        String descripcionProducto = ctx.formParam("descripcion");
 
         Producto producto = ProductoServices.getInstancia().find(id);
         producto.setNombre(nombre);
         producto.setPrecio(precio);
+        producto.setDescripcionProducto(descripcionProducto);
+
+        List<Foto> fotoNueva = FotoControlador.procesarFotos(ctx, producto);
+        producto.getFotos().addAll(fotoNueva);
 
         ProductoServices.getInstancia().editar(producto);
         ctx.redirect("/listarProductos");
@@ -96,5 +104,6 @@ public class CrudControladorProducto {
 
         ctx.redirect("/listarProductos");
     }
+
 
 }
