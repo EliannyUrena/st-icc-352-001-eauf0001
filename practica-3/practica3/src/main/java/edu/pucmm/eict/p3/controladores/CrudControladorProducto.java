@@ -105,5 +105,16 @@ public class CrudControladorProducto {
         ctx.redirect("/listarProductos");
     }
 
+    public static void visualizarProducto(@NotNull Context ctx) throws Exception {
+        Producto producto = ProductoServices.getInstancia().find(ctx.pathParamAsClass("id", Integer.class).required().get());
+
+        Map<String, Object> modelo = new HashMap<>();
+        modelo.put("titulo", "Visualizar producto "+ producto.getId());
+        modelo.put("producto", producto);
+        modelo.put("usuario", ctx.sessionAttribute("usuario"));
+
+        ctx.render("/templates/visualizarProductos.html", modelo);
+    }
+
 
 }
