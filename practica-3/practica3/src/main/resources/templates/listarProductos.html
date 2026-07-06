@@ -69,36 +69,43 @@
                 <th scope="col">Producto</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Cantidad</th>
-                <th th:if="${usuario != null and usuario.usuario == 'admin'}"
-                    scope="col">Acciones</th>
+                <th scope="col">Acciones</th>
             </tr>
             </thead>
 
             <tbody>
             <tr th:each="producto : ${listaProductos}">
-                <th th:text="${producto.id}"></th>
+
+                <td th:text="${producto.id}"></td>
+
                 <td>
-                        <a  th:href="@{/visualizarProductos/{id}(id=${producto.id})}"
+                        <a  th:href="'/visualizarProductos/'+${producto.id}"
                             th:text="${producto.nombre}"
                             class="text-dark">
                         </a>
                 </td>
                 <td th:text="${producto.precio}">Precio</td>
+
                 <td style="width: 120px;">
 
-                    <form method="post" th:action="@{'/carroCompra/agregar/' + ${producto.id}}" class="d-flex align-items-center gap-2">
+                    <form id="agregar" method="post" th:action="'/carroCompra/agregar/'+${producto.id}" class="d-flex align-items-center gap-2">
                         <input type="number" name="cantidad" min="0" value="1" class="form-control text-center col-auto">
-                        <button type="submit" class="btn btn-success mb-1">Agregar</button>
+
                     </form>
 
                 </td>
 
-                <td class="text-center">
+                <td>
+                    <button form="agregar" type="submit" class="btn btn-success mb-1">Agregar</button>
 
                     <a th:text="Editar" th:if="${usuario != null and usuario.usuario == 'admin'}" th:href="'/crudProductos/editar/'+${producto.id}" class="btn btn-secondary btn-sm"></a>
                     <a th:text="Eliminar" th:if="${usuario != null and usuario.usuario == 'admin'}" th:href="'/crudProductos/eliminar/'+${producto.id}" class="btn btn-danger btn-sm"></a>
 
                 </td>
+
+
+
+
             </tr>
             </tbody>
 

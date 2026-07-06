@@ -50,8 +50,8 @@ public class CrudControladorProducto {
         producto.setPrecio(new BigDecimal(precio));
         producto.setDescripcionProducto(descripcionProducto);
 
-        ProductoServices.getInstancia().crear(producto);
         FotoControlador.procesarFotos(ctx, producto);
+        ProductoServices.getInstancia().crear(producto);
 
         ctx.redirect("/listarProductos");
     }

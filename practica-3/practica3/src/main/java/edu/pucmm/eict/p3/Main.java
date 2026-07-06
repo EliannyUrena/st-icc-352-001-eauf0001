@@ -96,6 +96,7 @@ public class Main {
             config.routes.apiBuilder( () -> {
                 get("/listarProductos", CrudControladorProducto::listarProductos);
                 get("/visualizarProductos/{id}", CrudControladorProducto::visualizarProducto);
+                post("/producto/{id}/comentario", ComentarioControlador::procesarComentario);
 
             });
 
@@ -113,6 +114,8 @@ public class Main {
                     get("/eliminar/{id}", CrudControladorProducto::eliminarProducto);
 
                     get("/listarVentas", CarroCompraControlador::listarVentas);
+
+                    post("/comentario/eliminar/{id}", ComentarioControlador::eliminarComentario);
 
 
                 });

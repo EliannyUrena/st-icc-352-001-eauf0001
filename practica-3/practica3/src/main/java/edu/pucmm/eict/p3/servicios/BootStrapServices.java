@@ -51,9 +51,6 @@ public class BootStrapServices {
             usuario.crear(admin);
 
         }
-
-
-
     }
 
     public void init(){

@@ -7,6 +7,7 @@
         <class>edu.pucmm.eict.p3.entidades.Producto</class>
         <class>edu.pucmm.eict.p3.entidades.Usuario</class>
         <class>edu.pucmm.eict.p3.entidades.Foto</class>
+        <class>edu.pucmm.eict.p3.entidades.Comentario</class>
 
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />-->

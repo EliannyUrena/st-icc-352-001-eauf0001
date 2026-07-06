@@ -19,6 +19,9 @@ public class Producto {
     @OneToMany (mappedBy = "producto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Foto> fotos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Comentario> comentarios = new ArrayList<>();
+
     public Producto() {
 
     }
@@ -71,5 +74,13 @@ public class Producto {
 
     public void setFotos(List<Foto> fotos) {
         this.fotos = fotos;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 }

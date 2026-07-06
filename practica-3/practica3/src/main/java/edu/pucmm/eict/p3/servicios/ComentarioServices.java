@@ -1,0 +1,19 @@
+package edu.pucmm.eict.p3.servicios;
+
+import edu.pucmm.eict.p3.entidades.Comentario;
+
+public class ComentarioServices extends GestionDB<Comentario> {
+
+    private static ComentarioServices instancia;
+
+    private ComentarioServices() {
+        super(Comentario.class);
+    }
+
+    public static ComentarioServices getInstancia() {
+        if (instancia == null) {
+            instancia = new ComentarioServices();
+        }
+        return instancia;
+    }
+}

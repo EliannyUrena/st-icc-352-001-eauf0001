@@ -86,25 +86,71 @@
                     </div>
 
                     <h5>Descripción</h5>
-
                     <p th:text="${producto.descripcionProducto}"></p>
+                    <hr>
+
+                    <h4>Comentarios</h4>
+
+                    <div th:each="comentario : ${producto.comentarios}">
+                        <div class="card mb-2" th:if="${comentario.habilitado}">
+                        <div class="card-body">
+                            <h6>
+                                <strong th:text="${comentario.usuario}"></strong>
+                            </h6>
+
+                            <p class="mb-0" th:text="${comentario.texto}"></p>
+
+                            <form method="post" th:if="${usuario != null and usuario.usuario == 'admin'}"
+                                  th:action="'/crudProductos/comentario/eliminar/' + ${comentario.id}">
+
+                                <button type="submit" class="btn btn-danger">Eliminar comentario</button>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                    </div>
 
                     <hr>
 
-                    <h4
-                        th:text="'RD$ ' + ${producto.precio}">
-                    </h4>
+                    <div th:if="${usuario == null}"
+                         class="alert alert-warning"
+                         role="alert">
+                        Es necesario iniciar sesión para agregar un comentario.
+                        <a href="/login" class="alert-link">
+                            Iniciar sesión
+                        </a>
+
+                    </div>
+
+                    <div th:if="${usuario != null}">
+                        <h5>Agregar comentario</h5>
+                        <form method="post" th:action="@{'/producto/' + ${producto.id} + '/comentario'}">
+                            <div class="mb-3">
+
+                                <label class="form-label">Comentario</label>
+
+                                <textarea class="form-control"
+                                          name="texto"
+                                          rows="3">
+                                </textarea>
+
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                Comentar
+                            </button>
+
+                        </form>
+
+                    </div>
 
 
                     <div class="row">
 
                         <div class="col-md-9">
-
-                            <a href="/listarProductos"
-                               class="btn btn-secondary">
-                                Volver
-                            </a>
-
+                            <a href="/listarProductos" class="btn btn-secondary">Volver</a>
                         </div>
 
                     </div>
