@@ -21,11 +21,17 @@ public class CrudControladorProducto {
 
     public static void listarProductos(Context ctx) {
 
-        List<Producto> productos = ProductoServices.getInstancia().findAll();
+        int pagina = ctx.queryParamAsClass("pagina", Integer.class).getOrDefault(1);
+        List<Producto> productos = ProductoServices.getInstancia().listarPorPagina(pagina, 10);
+        long totalProductos = ProductoServices.getInstancia().cantidadProductos();
+        int totalPaginas = (int) Math.ceil((double) totalProductos/10);
+
         Map<String, Object> modelo = new HashMap<>();
         modelo.put("titulo", "Listado de productos");
         modelo.put("listaProductos", productos);
         modelo.put("usuario",ctx.sessionAttribute("usuario"));
+        modelo.put("pagina", pagina);
+        modelo.put("totalPaginas", totalPaginas);
 
         ctx.render("/templates/listarProductos.html", modelo);
     }
@@ -49,9 +55,8 @@ public class CrudControladorProducto {
         producto.setNombre(nombre);
         producto.setPrecio(new BigDecimal(precio));
         producto.setDescripcionProducto(descripcionProducto);
-
-        FotoControlador.procesarFotos(ctx, producto);
         ProductoServices.getInstancia().crear(producto);
+        FotoControlador.procesarFotos(ctx, producto.getId());
 
         ctx.redirect("/listarProductos");
     }
@@ -88,7 +93,7 @@ public class CrudControladorProducto {
         producto.setPrecio(precio);
         producto.setDescripcionProducto(descripcionProducto);
 
-        List<Foto> fotoNueva = FotoControlador.procesarFotos(ctx, producto);
+        List<Foto> fotoNueva = FotoControlador.procesarFotos(ctx, producto.getId());
         producto.getFotos().addAll(fotoNueva);
 
         ProductoServices.getInstancia().editar(producto);

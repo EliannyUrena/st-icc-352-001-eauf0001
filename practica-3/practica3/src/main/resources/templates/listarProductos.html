@@ -61,7 +61,7 @@
 
         <a th:if="${usuario != null and usuario.usuario == 'admin'}" href="/crudProductos/crear" class="btn btn-primary">Nuevo Producto</a>
 
-        <table class="table table-striped">
+        <table class="table table-striped shadow">
 
             <thead>
             <tr>
@@ -98,19 +98,32 @@
                 <td>
                     <button form="agregar" type="submit" class="btn btn-success mb-1">Agregar</button>
 
-                    <a th:text="Editar" th:if="${usuario != null and usuario.usuario == 'admin'}" th:href="'/crudProductos/editar/'+${producto.id}" class="btn btn-secondary btn-sm"></a>
-                    <a th:text="Eliminar" th:if="${usuario != null and usuario.usuario == 'admin'}" th:href="'/crudProductos/eliminar/'+${producto.id}" class="btn btn-danger btn-sm"></a>
+                    <a th:text="Editar" th:if="${usuario != null and usuario.usuario == 'admin'}" th:href="'/crudProductos/editar/'+${producto.id}" class="btn btn-secondary btn">Editar</a>
+                    <a th:text="Eliminar" th:if="${usuario != null and usuario.usuario == 'admin'}" th:href="'/crudProductos/eliminar/'+${producto.id}" class="btn btn-danger btn">Eliminar</a>
 
                 </td>
-
-
-
-
             </tr>
             </tbody>
 
         </table>
+
+        <nav>
+            <ul class="pagination justify-content-center">
+
+                <li class="page-item"
+                    th:each="i : ${#numbers.sequence(1, totalPaginas)}">
+
+                    <a class="page-link"
+                       th:href="@{/listarProductos(pagina=${i})}"
+                       th:text="${i}">
+                    </a>
+
+                </li>
+
+            </ul>
+        </nav>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
