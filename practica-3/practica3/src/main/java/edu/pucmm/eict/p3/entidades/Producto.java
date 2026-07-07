@@ -16,7 +16,7 @@ public class Producto {
     private BigDecimal precio;
 
     private String descripcionProducto;
-    @OneToMany (mappedBy = "producto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany (mappedBy = "producto", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Foto> fotos = new ArrayList<>();
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

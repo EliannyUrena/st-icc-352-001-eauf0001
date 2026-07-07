@@ -98,7 +98,7 @@
                                 <strong th:text="${comentario.usuario}"></strong>
                             </h6>
 
-                            <p class="mb-0" th:text="${comentario.texto}"></p>
+                            <p th:text="${comentario.texto}"></p>
 
                             <form method="post" th:if="${usuario != null and usuario.usuario == 'admin'}"
                                   th:action="'/crudProductos/comentario/eliminar/' + ${comentario.id}">

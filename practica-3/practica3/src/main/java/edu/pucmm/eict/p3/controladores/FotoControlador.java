@@ -3,15 +3,19 @@ package edu.pucmm.eict.p3.controladores;
 import edu.pucmm.eict.p3.entidades.Foto;
 import edu.pucmm.eict.p3.entidades.Producto;
 import edu.pucmm.eict.p3.servicios.FotoServices;
+import edu.pucmm.eict.p3.servicios.ProductoServices;
 import io.javalin.http.Context;
 
 import java.util.*;
 
 public class FotoControlador {
 
-    public static List<Foto> procesarFotos(Context ctx, Producto producto) {
+    public static List<Foto> procesarFotos(Context ctx, int idProducto) {
 
         List<Foto> fotos = new ArrayList<>();
+        Producto producto = ProductoServices.getInstancia().find(idProducto);
+
+
 
         ctx.uploadedFiles("fotos").forEach(uploadedFile -> {
             try {
