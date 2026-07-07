@@ -5,6 +5,11 @@ import edu.pucmm.eict.p3.entidades.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -51,6 +56,24 @@ public class UsuarioServices extends GestionDB<Usuario>{
         }
 
         return null;
+    }
+
+    public void guardarLogin(String usuario){
+        String sql = """
+                INSERT INTO registroUsuario(usuario, fecha) VALUES (?, ?)
+                """;
+
+        try(Connection con = getConexionCockroach();
+            PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, usuario);
+            ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now())
+            );
+            ps.executeUpdate();
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

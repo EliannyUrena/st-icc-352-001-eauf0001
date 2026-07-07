@@ -23,7 +23,7 @@ public class LoginControlador {
 
             if (user != null ) {
                 ctx.sessionAttribute("usuario", user);
-
+                UsuarioServices.getInstancia().guardarLogin(user.getUsuario());
                 if (recordar != null) {
                     crearCookie(ctx, user);
                 }

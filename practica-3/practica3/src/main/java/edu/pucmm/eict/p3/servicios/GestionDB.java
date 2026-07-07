@@ -3,6 +3,9 @@ package edu.pucmm.eict.p3.servicios;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaQuery;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
 
 public class GestionDB<T> {
@@ -83,6 +86,12 @@ public class GestionDB<T> {
             em.close();
         }
         return ok;
+    }
+
+    private static final String UrlCockroach = System.getenv("JDBC_DATABASE_URL");
+
+    public Connection getConexionCockroach() throws SQLException {
+        return DriverManager.getConnection(UrlCockroach);
     }
 
 
