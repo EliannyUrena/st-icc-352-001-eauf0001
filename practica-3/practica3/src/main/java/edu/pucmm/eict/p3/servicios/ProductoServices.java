@@ -27,4 +27,21 @@ public class ProductoServices extends GestionDB<Producto>{
         List<Producto> lista = query.getResultList();
         return lista;
     }
+
+    public List<Producto> listarPorPagina(int pagina, int cantidad) {
+
+        EntityManager em = getEntityManager();
+
+        return em.createQuery("select p from Producto p", Producto.class)
+                .setFirstResult((pagina - 1) * cantidad)
+                .setMaxResults(cantidad)
+                .getResultList();
+    }
+
+    public long cantidadProductos() {
+
+        EntityManager em = getEntityManager();
+
+        return em.createQuery("select count(p) from Producto p", Long.class).getSingleResult();
+    }
 }
