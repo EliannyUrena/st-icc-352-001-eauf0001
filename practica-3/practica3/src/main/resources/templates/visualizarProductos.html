@@ -89,7 +89,27 @@
                     <p th:text="${producto.descripcionProducto}"></p>
                     <hr>
 
-                    <h4>Comentarios</h4>
+                    <div th:if="${usuario != null}">
+                        <h5>Agregar comentario</h5>
+                        <form method="post" th:action="@{'/producto/' + ${producto.id} + '/comentario'}">
+                            <div class="mb-3">
+
+                                <textarea class="form-control"
+                                          name="texto"
+                                          rows="3">
+                                </textarea>
+
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                Comentar
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                    <h4 class="mt-4">Comentarios</h4>
 
                     <div th:each="comentario : ${producto.comentarios}">
                         <div class="card mb-2" th:if="${comentario.habilitado}">
@@ -124,27 +144,6 @@
 
                     </div>
 
-                    <div th:if="${usuario != null}">
-                        <h5>Agregar comentario</h5>
-                        <form method="post" th:action="@{'/producto/' + ${producto.id} + '/comentario'}">
-                            <div class="mb-3">
-
-                                <label class="form-label">Comentario</label>
-
-                                <textarea class="form-control"
-                                          name="texto"
-                                          rows="3">
-                                </textarea>
-
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">
-                                Comentar
-                            </button>
-
-                        </form>
-
-                    </div>
 
 
                     <div class="row">
