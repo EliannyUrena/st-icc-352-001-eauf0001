@@ -1,15 +1,20 @@
 package edu.pucmm.eict.p3.entidades;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class VentaProductos {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private Date fechaCompra;
     private String nombreCliente;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "venta", cascade = CascadeType.ALL)
     private List<DetalleCarrito> listaProductos;
 
     public VentaProductos() {

@@ -8,6 +8,8 @@
         <class>edu.pucmm.eict.p3.entidades.Usuario</class>
         <class>edu.pucmm.eict.p3.entidades.Foto</class>
         <class>edu.pucmm.eict.p3.entidades.Comentario</class>
+        <class>edu.pucmm.eict.p3.entidades.VentaProductos</class>
+        <class>edu.pucmm.eict.p3.entidades.DetalleCarrito</class>
 
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />-->

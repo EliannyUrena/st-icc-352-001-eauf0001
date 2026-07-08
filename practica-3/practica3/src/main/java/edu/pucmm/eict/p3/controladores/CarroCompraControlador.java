@@ -1,10 +1,12 @@
 package edu.pucmm.eict.p3.controladores;
 
 import edu.pucmm.eict.p3.entidades.CarroCompra;
+import edu.pucmm.eict.p3.entidades.DetalleCarrito;
 import edu.pucmm.eict.p3.entidades.Producto;
 import edu.pucmm.eict.p3.entidades.VentaProductos;
 import edu.pucmm.eict.p3.servicios.ClaseControladora;
 import edu.pucmm.eict.p3.servicios.ProductoServices;
+import edu.pucmm.eict.P5.Servicios.VentaProductosServices;
 import io.javalin.http.Context;
 
 import java.util.*;
@@ -42,9 +44,15 @@ public class CarroCompraControlador {
 
         VentaProductos venta = new VentaProductos();
         venta.setNombreCliente(nombreCliente);
-        venta.setListaProductos(claseControladora.copiarProductosCarrito(carroCompra));
 
-        claseControladora.getListaVentaProductos().add(venta);
+        List<DetalleCarrito> detalleCarritoList = claseControladora.copiarProductosCarrito(carroCompra);
+        //venta.setListaProductos(claseControladora.copiarProductosCarrito(carroCompra));
+        for (DetalleCarrito dC : detalleCarritoList) {
+            dC.setVenta(venta);
+        }
+        //claseControladora.getListaVentaProductos().add(venta);
+        venta.setListaProductos(detalleCarritoList);
+        VentaProductosServices.getInstancia().crear(venta);
         carroCompra.getListaProductos().clear();
 
         ctx.sessionAttribute("carroCompra", new CarroCompra());
@@ -98,7 +106,7 @@ public class CarroCompraControlador {
 
     public static void listarVentas(Context ctx) {
 
-        List<VentaProductos> venta = claseControladora.getListaVentaProductos();
+        List<VentaProductos> venta = VentaProductosServices.getInstancia().findAll();
         Map<String, Object> modelo = new HashMap<>();
 
         modelo.put("titulo", "Listado de ventas");

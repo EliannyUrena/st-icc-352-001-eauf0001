@@ -39,6 +39,6 @@ public class CarroCompra {
     }
 
     public void setNombreCliente(String nombreCliente) {
-        this.id = id;
+        this.nombreCliente = nombreCliente;
     }
 }
