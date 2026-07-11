@@ -88,7 +88,7 @@
 
                 <td style="width: 120px;">
 
-                    <form id="agregar" method="post" th:action="'/carroCompra/agregar/'+${producto.id}" class="d-flex align-items-center gap-2">
+                    <form th:id="'agregar'+${producto.id}" method="post" th:action="'/carroCompra/agregar/'+${producto.id}" class="d-flex align-items-center gap-2">
                         <input type="number" name="cantidad" min="0" value="1" class="form-control text-center col-auto">
 
                     </form>
@@ -96,7 +96,7 @@
                 </td>
 
                 <td>
-                    <button form="agregar" type="submit" class="btn btn-success mb-1">Agregar</button>
+                    <button th:form="'agregar'+${producto.id}" type="submit" class="btn btn-success mb-1">Agregar</button>
 
                     <a th:text="Editar" th:if="${usuario != null and usuario.usuario == 'admin'}" th:href="'/crudProductos/editar/'+${producto.id}" class="btn btn-secondary btn">Editar</a>
                     <a th:text="Eliminar" th:if="${usuario != null and usuario.usuario == 'admin'}" th:href="'/crudProductos/eliminar/'+${producto.id}" class="btn btn-danger btn">Eliminar</a>
